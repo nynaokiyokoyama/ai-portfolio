@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用ポートフォリオ | プロジェクト管理 - 横山 直紀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B224C; --navy-light: #3A4580; --navy-soft: #E8EAF2;
+  --teal: #008F96; --teal-light: rgba(0,143,150,0.06); --teal-hover: rgba(0,143,150,0.12); --teal-border: rgba(0,143,150,0.2);
+  --magenta: #E6007E; --magenta-light: rgba(230,0,126,0.08);
+  --grey: #D9D9D9; --grey-light: #F5F5F7; --grey-mid: #E8E8EC; --page-bg: #F0F1F5;
+  --white: #FFFFFF; --red: #C44; --red-light: #FEF2F2;
+  --shadow-sm: 0 1px 2px rgba(27,34,76,0.06); --shadow-md: 0 2px 8px rgba(27,34,76,0.08);
+  --radius: 10px; --radius-sm: 6px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
+
+/* Header */
+.sticky-top { position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
+.header { background:var(--navy); color:var(--white); padding:14px 32px; display:flex; align-items:center; justify-content:space-between; }
+.header-left { display:flex; align-items:center; gap:20px; }
+.header h1 { font-size:16px; font-weight:700; letter-spacing:0.3px; }
+.header .subtitle { font-size:11px; font-weight:300; opacity:0.6; margin-top:1px; }
+.header .meta { display:flex; align-items:center; gap:12px; font-size:11px; opacity:0.7; }
+.header .meta-divider { opacity:0.4; }
+.header .data-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:20px; font-size:11px; }
+.header .data-badge .dot { width:6px; height:6px; border-radius:50%; background:#50E3C2; }
+
+/* Tabs */
+.page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; }
+.page-tab:hover { color:rgba(255,255,255,0.8); }
+.page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
+
+/* Layout */
+.layout { max-width:1480px; margin:0 auto; padding:24px; display:grid; grid-template-columns:1fr; gap:20px; }
+
+/* Hero */
+.hero { background:var(--white); border-radius:var(--radius); padding:32px 36px; box-shadow:var(--shadow-sm); }
+.hero-eyebrow { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
+.hero h2 { font-size:28px; font-weight:700; color:var(--navy); margin-bottom:6px; line-height:1.4; }
+.hero .lead { font-size:14px; color:var(--navy); opacity:0.7; max-width:840px; line-height:1.8; }
+
+/* Card */
+.card { background:var(--white); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow-sm); }
+.card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px; gap:16px; }
+.card-title-block { flex:1; }
+.card-title { font-size:11px; font-weight:700; color:var(--navy); opacity:0.65; letter-spacing:0.8px; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.card-title::before { content:''; display:inline-block; width:3px; height:14px; background:var(--teal); border-radius:2px; }
+.card-h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:6px; }
+.card-lead { font-size:13px; color:var(--navy); opacity:0.7; line-height:1.7; }
+.card-badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; background:var(--teal-light); border:1px solid var(--teal-border); border-radius:12px; font-size:10px; font-weight:500; color:var(--teal); white-space:nowrap; }
+
+/* Before/After */
+.ba-grid { display:grid; grid-template-columns:1fr 36px 1fr; gap:14px; align-items:stretch; margin-top:10px; }
+.ba-col { padding:18px 22px; border-radius:var(--radius-sm); }
+.ba-before { background:var(--grey-light); border-left:3px solid var(--grey); }
+.ba-after { background:var(--teal-light); border-left:3px solid var(--teal); }
+.ba-label { font-size:10px; font-weight:700; letter-spacing:1.5px; margin-bottom:10px; opacity:0.7; }
+.ba-before .ba-label { color:#888; }
+.ba-after .ba-label { color:var(--teal); }
+.ba-list { font-size:13px; color:var(--navy); line-height:1.8; padding-left:18px; }
+.ba-list li { margin-bottom:6px; }
+.ba-list li:last-child { margin-bottom:0; }
+.ba-list strong { color:var(--navy); }
+.ba-arrow { display:flex; align-items:center; justify-content:center; color:var(--teal); font-size:20px; font-weight:700; }
+
+/* Architecture diagram */
+.arch-container { background:var(--grey-light); border-radius:var(--radius); padding:28px 24px 28px 60px; margin-top:10px; position:relative; }
+.cycle-loop { position:absolute; left:0; top:0; height:100%; width:48px; pointer-events:none; display:block; overflow:visible; }
+.cycle-loop-label { position:absolute; left:4px; top:50%; transform:translateY(-50%) rotate(-90deg); transform-origin:center; font-size:9.5px; color:var(--teal); letter-spacing:1.5px; font-weight:700; white-space:nowrap; }
+.arch-layer { margin-bottom:14px; }
+.arch-layer:last-child { margin-bottom:0; }
+.arch-layer-label { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-left:4px; }
+.arch-layer-num { width:22px; height:22px; background:var(--navy); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; }
+.arch-layer-name { font-size:10px; font-weight:700; color:var(--navy); letter-spacing:1.5px; text-transform:uppercase; opacity:0.85; }
+.arch-layer-desc { font-size:11px; color:var(--navy); opacity:0.55; margin-left:8px; }
+.arch-arrow { text-align:center; font-size:20px; color:var(--navy); opacity:0.4; padding:6px 0; line-height:1; }
+.arch-boundary { background:#FFFBEB; border:1px dashed var(--magenta); border-radius:var(--radius-sm); padding:8px 14px; text-align:center; font-size:11px; color:var(--magenta); font-weight:500; letter-spacing:0.5px; margin:10px 0; }
+
+/* Data sources */
+.data-sources { display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:12px; align-items:stretch; }
+.ds-group { background:var(--white); border-radius:var(--radius-sm); padding:12px 16px; border:1px solid var(--grey-mid); }
+.ds-group-label { font-size:9.5px; font-weight:700; color:var(--navy); opacity:0.55; letter-spacing:1.2px; margin-bottom:10px; text-transform:uppercase; }
+.ds-row { display:flex; gap:8px; flex-wrap:wrap; }
+.ds-item { display:inline-flex; align-items:center; gap:7px; padding:5px 10px 5px 6px; background:var(--grey-light); border-radius:14px; font-size:11.5px; color:var(--navy); font-weight:500; }
+.ds-logo { width:18px; height:18px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:white; flex-shrink:0; }
+.ds-logo.word { background:#2B579A; }
+.ds-logo.excel { background:#217346; }
+.ds-logo.ppt { background:#D24726; }
+.ds-logo.notion { background:#000; }
+.ds-logo.slack { background:#4A154B; }
+.ds-logo.zoom { background:#2D8CFF; }
+.ds-checkup { background:var(--navy-soft); border:1px solid var(--navy-light); border-left:3px solid var(--navy); }
+.ds-checkup .ds-group-label { color:var(--navy); opacity:0.85; }
+.ds-checkup-action { font-size:11.5px; color:var(--navy); line-height:1.65; opacity:0.85; }
+.ds-checkup-action .checkup-cmd { display:inline-block; padding:1px 8px; background:var(--white); border:1px solid var(--navy-light); border-radius:10px; font-family:'SF Mono', Consolas, monospace; font-size:11px; color:var(--navy); font-weight:500; margin:0 2px; }
+
+/* Orchestration node */
+.arch-node-pm { background:var(--navy); color:var(--white); padding:16px 22px; border-radius:var(--radius-sm); }
+.arch-node-pm-title { font-size:14px; font-weight:700; margin-bottom:3px; }
+.arch-node-pm-desc { font-size:11px; opacity:0.75; line-height:1.6; }
+
+/* Specialist agents - staged flow */
+.spec-stages { display:grid; grid-template-columns:1fr; gap:8px; }
+.spec-stage { background:var(--white); border:1px solid var(--grey-mid); border-radius:var(--radius-sm); padding:14px 18px; position:relative; }
+.spec-stage-label { font-size:9.5px; font-weight:700; color:var(--teal); letter-spacing:1.2px; margin-bottom:10px; display:flex; align-items:center; gap:8px; text-transform:uppercase; }
+.spec-stage-num { width:22px; height:22px; background:var(--teal); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+.spec-stage-desc { font-weight:400; opacity:0.65; text-transform:none; letter-spacing:0; font-size:11px; color:var(--navy); margin-left:6px; }
+
+.duo { display:grid; grid-template-columns:1fr 50px 1fr; gap:6px; align-items:stretch; }
+.duo-arrow { display:flex; align-items:center; justify-content:center; color:var(--magenta); font-size:22px; font-weight:700; }
+.duo-arrow-label { position:absolute; font-size:9px; color:var(--magenta); letter-spacing:0.5px; opacity:0.75; }
+.trio { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; align-items:stretch; }
+.quartet { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; align-items:stretch; }
+.arch-node.cycle-out { border-left:3px solid var(--teal); background:var(--teal-light); border-color:var(--teal-border); position:relative; }
+.arch-node.cycle-out::after { content:'↻'; position:absolute; top:6px; right:8px; font-size:14px; color:var(--teal); font-weight:700; }
+
+.arch-node { background:var(--white); border:1px solid var(--grey-mid); border-radius:var(--radius-sm); padding:11px 14px; }
+.arch-node-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+.arch-node-desc { font-size:10.5px; color:var(--navy); opacity:0.65; line-height:1.5; }
+.arch-node.specialist { border-left:3px solid var(--teal); background:var(--teal-light); border-color:var(--teal-border); }
+.arch-node.partner { border-left:3px solid var(--magenta); background:var(--magenta-light); border-color:rgba(230,0,126,0.2); }
+.arch-node.partner .arch-node-title { color:var(--magenta); }
+.arch-node.output { background:var(--white); border-color:var(--navy-light); border-left:3px solid var(--navy); }
+.arch-node.human { background:#FFFBEB; border:2px solid var(--magenta); padding:18px 22px; }
+.arch-node.human .arch-node-title { color:var(--magenta); font-size:14px; }
+
+.spec-mini-arrow { text-align:center; font-size:14px; color:var(--teal); opacity:0.55; padding:4px 0; }
+.spec-mini-arrow span { font-size:10px; margin-left:6px; opacity:0.85; }
+
+
+/* Sample output */
+.sample-output { background:var(--navy); color:var(--white); border-radius:var(--radius); padding:24px 28px; margin-top:10px; font-family:'SF Mono', Consolas, 'Courier New', monospace; font-size:12px; line-height:1.8; overflow-x:auto; }
+.sample-output-header { display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); }
+.sample-output-filename { font-size:12px; color:rgba(255,255,255,0.6); font-family:'Noto Sans JP', sans-serif; }
+.sample-output-tag { font-size:10px; padding:3px 10px; background:var(--teal); color:var(--white); border-radius:10px; font-family:'Noto Sans JP', sans-serif; font-weight:500; letter-spacing:0.3px; }
+.md-h1 { color:#9EE6FF; font-size:15px; font-weight:700; margin-bottom:6px; margin-top:0; }
+.md-meta { color:rgba(255,255,255,0.55); font-size:11px; margin-bottom:18px; }
+.md-h2 { font-size:13px; font-weight:700; margin-top:18px; margin-bottom:6px; padding-top:6px; }
+.md-h2-pm { color:#9EE6FF; }
+.md-h2-sc { color:#A3E8C4; }
+.md-h2-pt { color:#FFB3D3; }
+.md-h2-final { color:#FFE08A; }
+.md-li { padding-left:18px; position:relative; color:rgba(255,255,255,0.85); }
+.md-li::before { content:'-'; position:absolute; left:6px; color:rgba(255,255,255,0.45); }
+.md-bold { color:var(--white); font-weight:700; }
+.md-italic { color:rgba(255,255,255,0.65); font-style:italic; }
+.md-quote { padding-left:14px; border-left:2px solid var(--magenta); color:rgba(255,255,255,0.85); margin:8px 0; }
+.md-divider { border:none; border-top:1px solid rgba(255,255,255,0.12); margin:14px 0; }
+.md-table { width:100%; border-collapse:collapse; margin-top:8px; font-family:'Noto Sans JP', sans-serif; font-size:11px; }
+.md-table th { background:rgba(255,255,255,0.05); color:#9EE6FF; padding:6px 10px; text-align:left; font-weight:500; border-bottom:1px solid rgba(255,255,255,0.15); }
+.md-table td { padding:6px 10px; border-bottom:1px solid rgba(255,255,255,0.06); color:rgba(255,255,255,0.85); }
+
+/* Tags */
+.tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.tag { display:inline-flex; align-items:center; padding:3px 10px; background:var(--white); border:1px solid var(--grey-mid); border-radius:14px; font-size:11px; color:var(--navy); }
+.tag.teal { border-color:var(--teal-border); background:var(--teal-light); color:var(--teal); }
+.tag.dummy { background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25); font-size:10px; font-weight:500; }
+
+/* Footer */
+.footer { text-align:center; padding:24px; font-size:11px; color:var(--navy); opacity:0.45; border-top:1px solid var(--grey-mid); margin-top:8px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .data-sources { grid-template-columns:1fr; }
+  .trio { grid-template-columns:1fr; }
+  .quartet { grid-template-columns:1fr 1fr; }
+  .ba-grid { grid-template-columns:1fr; }
+  .ba-arrow { transform:rotate(90deg); padding:4px 0; }
+  .arch-container { padding-left:24px; }
+  .cycle-loop, .cycle-loop-label { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sticky-top">
+  <header class="header">
+    <div class="header-left">
+      <div>
+        <h1>AI活用ポートフォリオ</h1>
+        <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
+      </div>
+      <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
+    </div>
+    <div class="meta">
+      <span>横山 直紀</span>
+      <span class="meta-divider">/</span>
+      <span>2026.05</span>
+    </div>
+  </header>
+  <nav class="page-tabs">
+    <button class="page-tab active">プロジェクト管理</button>
+    <button class="page-tab">マーケティング戦略策定</button>
+    <button class="page-tab">デジタルマーケティング施策</button>
+  </nav>
+</div>
+
+<div class="layout">
+
+  <section class="hero">
+    <div class="hero-eyebrow">TAB 01 ・ PROJECT MANAGEMENT</div>
+    <h2>プロジェクト管理のエージェント化</h2>
+    <p class="lead">MCPで連携したSlack / Notion AI / Zoomなどの外部ツールの情報やローカルファイルの変更点を、AIエージェントが自動でキャッチアップ。さらに、役割を分けた複数エージェントが議論し、「次にやるべきこと」の素案までを生成する。ただし、最終的な実行権限はAIに与えず、人が外部への送信や最終承認を行う、Human in the Loop型の業務運用を実装している。</p>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">01 ・ なぜ "エージェント化" が必要か</div>
+        <h3 class="card-h2">単発のAI活用ではなく、業務フロー全体の再設計へ</h3>
+        <p class="card-lead">「AIをツールとして使う」段階を超え、「複数のAIエージェントを役割分担させ、業務プロセスそのものを再設計する」フェーズに踏み込んでいる。</p>
+      </div>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-col ba-before">
+        <div class="ba-label">BEFORE ・ 従来型</div>
+        <ul class="ba-list">
+          <li><strong>人がツールを呼び出し続ける構造</strong>。会議のたびに議事録をダウンロードし、AIに貼り付けて要約させる手動オペレーション。</li>
+          <li><strong>常に文脈をこちらがプロンプト内に記載する必要</strong>。前回の議論、プロジェクトの背景、関係者の意向を毎回手で投入。</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col ba-after">
+        <div class="ba-label">AFTER ・ エージェント化</div>
+        <ul class="ba-list">
+          <li><strong>AIのために情報をまとめる時間を限界までなくす</strong>。MCPで連携した業務ツールから、AIが直接、過去ログも含めて参照。</li>
+          <li><strong>人は最終承認と外部アクションのみに集中</strong>。役割別のエージェントが議論し、次アクション素案までを自動生成。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">02 ・ アーキテクチャ全体像</div>
+        <h3 class="card-h2">5層構造で「収集 → 判断 → 専門実行 → アウトプット → 承認」を分業</h3>
+        <p class="card-lead">プロジェクトマネージャーがオーケストレーション。シニアコンサルとパートナーが素案と厳格レビューを往復し、合意後にアナリスト・ドキュメント・QAへ展開。最終的にNaokiが承認することで初めて外部にアクションが及ぶ設計。</p>
+      </div>
+      <span class="card-badge">権限境界あり ・ 外部送信禁止</span>
+    </div>
+
+    <div class="arch-container">
+
+      <svg class="cycle-loop" id="cycle-loop-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <marker id="cycle-arrow" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <polygon points="0 0, 8 4, 0 8" fill="#008F96"/>
+          </marker>
+        </defs>
+        <path id="cycle-path" stroke="#008F96" stroke-width="1.5" stroke-dasharray="5 3" fill="none" marker-end="url(#cycle-arrow)"/>
+      </svg>
+      <div class="cycle-loop-label">CYCLE</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <span class="arch-layer-num">1</span>
+          <span class="arch-layer-name">INPUT LAYER</span>
+          <span class="arch-layer-desc">データソース</span>
+        </div>
+        <div class="data-sources">
+          <div class="ds-group ds-checkup">
+            <div class="ds-group-label">前回のキャッチアップレポート</div>
+            <div class="ds-checkup-action"><span class="checkup-cmd">/キャッチアップして</span> の一言指示で、前回レポートから今日までの情報更新分を自動確認</div>
+          </div>
+          <div class="ds-group">
+            <div class="ds-group-label">ローカルファイル</div>
+            <div class="ds-row">
+              <div class="ds-item"><span class="ds-logo word">W</span>Word</div>
+              <div class="ds-item"><span class="ds-logo excel">X</span>Excel</div>
+              <div class="ds-item"><span class="ds-logo ppt">P</span>PowerPoint</div>
+            </div>
+          </div>
+          <div class="ds-group">
+            <div class="ds-group-label">クラウドツール (MCP連携)</div>
+            <div class="ds-row">
+              <div class="ds-item"><span class="ds-logo notion">N</span>Notion</div>
+              <div class="ds-item"><span class="ds-logo slack">S</span>Slack</div>
+              <div class="ds-item"><span class="ds-logo zoom">Z</span>Zoom 議事録</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <span class="arch-layer-num">2</span>
+          <span class="arch-layer-name">ORCHESTRATION</span>
+          <span class="arch-layer-desc">判断 ・ 指示</span>
+        </div>
+        <div class="arch-node-pm">
+          <div class="arch-node-pm-title">プロジェクトマネージャー <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格①)</span></div>
+          <div class="arch-node-pm-desc">入力データと過去レポートを統合的に参照。ゴール照合・状況判断のうえ、各専門エージェントへ指示を出す。</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <span class="arch-layer-num">3</span>
+          <span class="arch-layer-name">SPECIALIST AGENTS</span>
+          <span class="arch-layer-desc">専門実行 ・ フィードバックループ</span>
+        </div>
+
+        <div class="spec-stages">
+
+          <div class="spec-stage">
+            <div class="spec-stage-label">
+              <span class="spec-stage-num">①</span>
+              STEP 1 ・ 素案と厳格レビュー
+              <span class="spec-stage-desc">シニコンが素案 → パートナーが厳格レビュー → シニコンが反映 (合意まで往復)</span>
+            </div>
+            <div class="duo">
+              <div class="arch-node specialist">
+                <div class="arch-node-title">シニアコンサルタント <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格②)</span></div>
+                <div class="arch-node-desc">戦略策定 ・ 素案作成 ・ FB反映</div>
+              </div>
+              <div class="duo-arrow">⇄</div>
+              <div class="arch-node partner">
+                <div class="arch-node-title">パートナー <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格③)</span></div>
+                <div class="arch-node-desc">戦略への厳格FB ・ 壁打ち</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-mini-arrow">↓<span>合意した方針に沿って</span></div>
+
+          <div class="spec-stage">
+            <div class="spec-stage-label">
+              <span class="spec-stage-num">②</span>
+              STEP 2 ・ 調査と分析
+              <span class="spec-stage-desc">合意した方針を、リサーチ・インタビュー両軸で深堀り</span>
+            </div>
+            <div class="duo">
+              <div class="arch-node specialist">
+                <div class="arch-node-title">リサーチアナリスト <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格④)</span></div>
+                <div class="arch-node-desc">定量調査 ・ 分析 ・ 示唆出し</div>
+              </div>
+              <div class="duo-arrow" style="color:var(--teal); font-size:14px;">+</div>
+              <div class="arch-node specialist">
+                <div class="arch-node-title">インタビューアナリスト <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格⑤)</span></div>
+                <div class="arch-node-desc">定性調査 ・ 文字起こし分析</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-mini-arrow">↓<span>分析結果を成果物に変換</span></div>
+
+          <div class="spec-stage">
+            <div class="spec-stage-label">
+              <span class="spec-stage-num">③</span>
+              STEP 3 ・ 整形と品質チェック
+              <span class="spec-stage-desc">成果物を整形 → 納品前の品質チェック</span>
+            </div>
+            <div class="duo">
+              <div class="arch-node specialist">
+                <div class="arch-node-title">ドキュメント <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格⑥)</span></div>
+                <div class="arch-node-desc">成果物整形 ・ Drive保存</div>
+              </div>
+              <div class="duo-arrow" style="color:var(--teal); font-size:14px;">→</div>
+              <div class="arch-node specialist">
+                <div class="arch-node-title">QAチェッカー <span style="opacity:0.65; font-weight:400; font-size:11px; letter-spacing:0.5px;">(AI人格⑦)</span></div>
+                <div class="arch-node-desc">納品前品質チェック</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="arch-boundary">━━━━ AIエージェント権限境界 ・ 外部送信は禁止 ━━━━</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <span class="arch-layer-num">4</span>
+          <span class="arch-layer-name">OUTPUT</span>
+          <span class="arch-layer-desc">成果物 ・ 読み取り専用 ・ 編集待ち</span>
+        </div>
+        <div class="quartet">
+          <div class="arch-node cycle-out">
+            <div class="arch-node-title">キャッチアップレポート</div>
+            <div class="arch-node-desc">次サイクルのINPUTへ参照</div>
+          </div>
+          <div class="arch-node output">
+            <div class="arch-node-title">戦略ドキュメント</div>
+            <div class="arch-node-desc">Drive保存 ・ 編集待ち</div>
+          </div>
+          <div class="arch-node output">
+            <div class="arch-node-title">タスクリスト</div>
+            <div class="arch-node-desc">優先度 ・ 担当付き</div>
+          </div>
+          <div class="arch-node output">
+            <div class="arch-node-title">分析レポート</div>
+            <div class="arch-node-desc">調査 ・ インタビュー示唆</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <span class="arch-layer-num">5</span>
+          <span class="arch-layer-name">HUMAN IN THE LOOP</span>
+          <span class="arch-layer-desc">ラストワンマイル ・ 承認 ・ 送信</span>
+        </div>
+        <div class="arch-node human">
+          <div class="arch-node-title">Naoki ・ 実行者</div>
+          <div class="arch-node-desc">承認 ・ 送信 ・ 最終編集 ・ 外部アクション</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">03 ・ 実際のアウトプットイメージ</div>
+        <h3 class="card-h2">会議1本から、エージェント議論を経て次アクション素案までを自動生成</h3>
+        <p class="card-lead">プロジェクトAの週次定例 (架空のクライアントA社) における、AIエージェント群の自動生成レポートのサンプル。シニアコンサルとパートナーの議論を経て、最終的な「やるべきこと素案」までを出力する。</p>
+      </div>
+      <span class="card-badge" style="background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25);">本データはダミーデータです</span>
+    </div>
+
+    <div class="sample-output">
+      <div class="sample-output-header">
+        <div class="sample-output-filename">catchup_report_2026-05-10.md</div>
+        <div class="sample-output-tag">自動生成</div>
+      </div>
+
+      <div class="md-h1"># プロジェクトA ・ キャッチアップレポート</div>
+      <div class="md-meta">生成日時: 2026-05-10 09:30 JST ・ トリガー: /キャッチアップして ・ 前回レポート (2026-05-03) 以降の差分: Notion 3ページ / Slack #project-a 47発言 / Zoom会議「A社週次」</div>
+
+      <div class="md-h2 md-h2-pm">## 1. プロジェクトマネージャー (AI人格①) ・ 差分サマリー</div>
+      <div class="md-li">A社週次定例 (昨日17:00-18:00) では、<span class="md-bold">「Q3予算30%減」</span>が新たに打診された</div>
+      <div class="md-li">継続論点: LP改善のCVR目標達成は60%地点、要再計画</div>
+      <div class="md-li">意思決定: 来週までに代替プロモ施策案を3つ提示することで合意</div>
+      <div class="md-li">未決事項: CRMツール乗り換えの判断 (Account Engagement → 他候補)</div>
+
+      <div class="md-quote">
+        Slack上の重要発言:<br>
+        ・B様 (事業部長): 「Q3予算は本当に削減方向で確定。デジタル偏重を再考」<br>
+        ・C様 (デジマ責任者): 「個別最適のチャネル毎施策より、統合的な戦略再設計を期待」
+      </div>
+
+      <hr class="md-divider">
+
+      <div class="md-h2 md-h2-sc">## 2. シニアコンサルタント (AI人格②) ・ 戦略整合性分析 (暫定)</div>
+      <div class="md-li">当初計画 (リード獲得CVR 2.0%目標、月150件) に対し、現状60%地点</div>
+      <div class="md-li"><span class="md-bold">重大なズレ</span>: 「Q3予算30%減」は、当初の前提を根本から覆す</div>
+      <div class="md-li"><span class="md-bold">示唆</span>: 個別チャネル最適化の前に、事業KPIからの逆算によるリソース再配分が必要</div>
+
+      <div class="md-italic" style="margin-top:8px;">→ 提案する次アクション素案:</div>
+      <div class="md-li">A社の事業目標とマーケKPIの再リンクを実施 (週内)</div>
+      <div class="md-li">削減30%前提の「投資対効果上位3チャネル」への集中提案を準備</div>
+      <div class="md-li">CRM乗り換え判断は、事業KPI再設計の後 (性急に決めない)</div>
+
+      <hr class="md-divider">
+
+      <div class="md-h2 md-h2-pt">## 3. パートナー (AI人格③) ・ 厳格フィードバック</div>
+      <div class="md-italic" style="margin-bottom:8px;">> シニアコンサル素案、戦略整合性の指摘は正しい。ただし以下3点の見落としあり:</div>
+
+      <div class="md-li"><span class="md-bold">[1] C様発言の解釈が浅い</span>: 「統合的な戦略再設計を期待」は、単なるKPI再リンクではなく、マーケ機能の組織再設計を指している可能性。次回ヒアリングで「組織の話まで踏み込んでいいか」を確認すべき</div>
+      <div class="md-li"><span class="md-bold">[2] 予算30%減の真因が未確認</span>: 経営判断か、A社内のパワーバランス変化か。前者なら戦略変更、後者なら別の打ち手</div>
+      <div class="md-li"><span class="md-bold">[3] 3つのプロモ案の中身が空</span>: 「3つ提示」と合意したが、軸が決まっていない。「インバウンド / アウトバウンド / 既存顧客深耕」の3軸で出し分けると、後の議論がブレない</div>
+
+      <hr class="md-divider">
+
+      <div class="md-h2 md-h2-sc">## 4. シニアコンサル (AI人格②) → 各エージェントへの指示案</div>
+      <div class="md-italic" style="margin-bottom:10px;">パートナーFB (AI人格③) を反映の上、以下を各エージェントへ指示予定。Naokiが承認した段階で並列実行を開始する。</div>
+
+      <div style="display:grid; grid-template-columns:1fr; gap:6px; font-family:'Noto Sans JP', sans-serif; font-size:11.5px; margin-top:6px;">
+        <div style="background:rgba(255,255,255,0.04); border-left:2px solid #A3E8C4; padding:8px 12px; border-radius:3px;">
+          <div style="color:#A3E8C4; font-weight:700; margin-bottom:3px;">▼ リサーチアナリスト (AI人格④) への指示案</div>
+          <div style="color:rgba(255,255,255,0.85); line-height:1.65;">Q3予算30%減の真因仮説 (経営判断 vs 組織判断) を、A社IR資料と業界動向から検証 ・ <span style="color:#FFE08A;">期限: 5/12</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-left:2px solid #A3E8C4; padding:8px 12px; border-radius:3px;">
+          <div style="color:#A3E8C4; font-weight:700; margin-bottom:3px;">▼ インタビューアナリスト (AI人格⑤) への指示案</div>
+          <div style="color:rgba(255,255,255,0.85); line-height:1.65;">C様の「統合的な戦略再設計」発言の真意を、過去議事録3本から再分析。「組織再設計」の温度感を裏付ける発言を特定 ・ <span style="color:#FFE08A;">期限: 5/13</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-left:2px solid #A3E8C4; padding:8px 12px; border-radius:3px;">
+          <div style="color:#A3E8C4; font-weight:700; margin-bottom:3px;">▼ ドキュメント (AI人格⑥) への指示案</div>
+          <div style="color:rgba(255,255,255,0.85); line-height:1.65;">「インバウンド / アウトバウンド / 既存深耕」3軸のプロモ案テンプレを準備 + 類似事例3本をDriveから抽出 ・ <span style="color:#FFE08A;">期限: 5/14</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-left:2px solid #A3E8C4; padding:8px 12px; border-radius:3px;">
+          <div style="color:#A3E8C4; font-weight:700; margin-bottom:3px;">▼ QAチェッカー (AI人格⑦) への指示案</div>
+          <div style="color:rgba(255,255,255,0.85); line-height:1.65;">上記成果物の納品前チェック (整合性 / 出典明示 / 用語統一) ・ <span style="color:#FFE08A;">期限: 5/14</span></div>
+        </div>
+      </div>
+
+      <hr class="md-divider">
+
+      <div class="md-h2 md-h2-final">## 5. Naoki承認待ち ・ 統合された次アクション素案</div>
+      <table class="md-table">
+        <thead>
+          <tr>
+            <th style="width:35px;">#</th>
+            <th>アクション</th>
+            <th style="width:60px;">期日</th>
+            <th style="width:90px;">担当</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>C様への追加ヒアリング設定 (組織再設計の温度感)</td>
+            <td>5/13</td>
+            <td>Naoki</td>
+            <td>パートナー指摘①対応</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>予算減の真因仮説整理 (経営判断vs組織判断)</td>
+            <td>5/12</td>
+            <td>リサーチA</td>
+            <td>パートナー指摘②対応</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>3つのプロモ案を「IB/OB/既存」3軸で素案化</td>
+            <td>5/15</td>
+            <td>シニコン</td>
+            <td>パートナー指摘③対応</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>A社事業KPI ↔ マーケKPI 再リンク資料</td>
+            <td>5/14</td>
+            <td>シニコン</td>
+            <td>当初素案①の継続</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>CRM乗り換え判断を5/15提案後に延期通知</td>
+            <td>5/12</td>
+            <td>Naoki</td>
+            <td>A社C様向け</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:14px; padding:12px 16px; background:rgba(80,227,194,0.1); border-left:2px solid #50E3C2; border-radius:4px; font-family:'Noto Sans JP', sans-serif; font-size:12px; color:#9EE6FF;">
+        → Naoki承認後、各担当エージェントへ自動指示。Naokiは外部送信・最終承認のみ実行
+      </div>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">MCP</span>
+      <span class="tag teal">Notion AI</span>
+      <span class="tag teal">Zoom AI Companion</span>
+      <span class="tag teal">Slack</span>
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">Google Drive</span>
+      <span class="tag dummy">本データはダミーデータです</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    AI活用ポートフォリオ ・ プロジェクト管理タブ ・ 横山 直紀 ・ 2026.05<br>
+    本資料に含まれるサンプルデータはすべて架空のものであり、実在する企業・人物とは関係ありません
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  function updateCyclePath() {
+    var container = document.querySelector('.arch-container');
+    var input = document.querySelector('.ds-checkup');
+    var output = document.querySelector('.cycle-out');
+    var svg = document.getElementById('cycle-loop-svg');
+    var path = document.getElementById('cycle-path');
+    if (!container || !input || !output || !path || !svg) return;
+    if (svg.offsetWidth === 0) return;
+    var containerRect = container.getBoundingClientRect();
+    var inputRect = input.getBoundingClientRect();
+    var outputRect = output.getBoundingClientRect();
+    var inputY = inputRect.top - containerRect.top + inputRect.height / 2;
+    var outputY = outputRect.top - containerRect.top + outputRect.height / 2;
+    var containerHeight = containerRect.height;
+    svg.setAttribute('viewBox', '0 0 48 ' + containerHeight);
+    var d = 'M 44 ' + outputY + ' L 22 ' + outputY + ' L 22 ' + inputY + ' L 40 ' + inputY;
+    path.setAttribute('d', d);
+  }
+  window.addEventListener('load', updateCyclePath);
+  window.addEventListener('resize', updateCyclePath);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateCyclePath);
+  }
+  setTimeout(updateCyclePath, 100);
+  setTimeout(updateCyclePath, 500);
+})();
+</script>
+
+</body>
+</html>
