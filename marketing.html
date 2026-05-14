@@ -35,6 +35,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
 .page-tab:hover { color:rgba(255,255,255,0.8); }
 .page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
+.page-tab.home-tab { color:rgba(255,255,255,0.45); font-size:12px; }
+.page-tab.home-tab:hover { color:rgba(255,255,255,0.75); }
 
 /* Layout */
 .layout { max-width:1480px; margin:0 auto; padding:24px; display:grid; grid-template-columns:1fr; gap:20px; }
@@ -179,10 +181,10 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 <div class="sticky-top">
   <header class="header">
     <div class="header-left">
-      <div>
+      <a href="index.html" style="text-decoration:none; color:inherit;">
         <h1>AI活用ポートフォリオ</h1>
         <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
-      </div>
+      </a>
       <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
     </div>
     <div class="meta">
@@ -192,7 +194,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
     </div>
   </header>
   <nav class="page-tabs">
-    <a class="page-tab" href="index.html">プロジェクト管理</a>
+    <a class="page-tab home-tab" href="index.html">← TOP</a>
+    <a class="page-tab" href="project-management.html">プロジェクト管理</a>
     <a class="page-tab active" href="marketing.html">マーケティング戦略策定</a>
     <a class="page-tab" href="digital.html">デジタルマーケティング施策</a>
   </nav>

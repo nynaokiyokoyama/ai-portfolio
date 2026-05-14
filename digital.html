@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用ポートフォリオ | デジタルマーケティング施策 - 横山 直紀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B224C; --navy-light: #3A4580; --navy-soft: #E8EAF2;
+  --teal: #008F96; --teal-light: rgba(0,143,150,0.06); --teal-hover: rgba(0,143,150,0.12); --teal-border: rgba(0,143,150,0.2);
+  --magenta: #E6007E; --magenta-light: rgba(230,0,126,0.08);
+  --grey: #D9D9D9; --grey-light: #F5F5F7; --grey-mid: #E8E8EC; --page-bg: #F0F1F5;
+  --white: #FFFFFF; --red: #C44; --red-light: #FEF2F2;
+  --shadow-sm: 0 1px 2px rgba(27,34,76,0.06); --shadow-md: 0 2px 8px rgba(27,34,76,0.08);
+  --radius: 10px; --radius-sm: 6px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
+
+/* Header */
+.sticky-top { position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
+.header { background:var(--navy); color:var(--white); padding:14px 32px; display:flex; align-items:center; justify-content:space-between; }
+.header-left { display:flex; align-items:center; gap:20px; }
+.header h1 { font-size:16px; font-weight:700; letter-spacing:0.3px; }
+.header .subtitle { font-size:11px; font-weight:300; opacity:0.6; margin-top:1px; }
+.header .meta { display:flex; align-items:center; gap:12px; font-size:11px; opacity:0.7; }
+.header .meta-divider { opacity:0.4; }
+.header .data-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:20px; font-size:11px; }
+.header .data-badge .dot { width:6px; height:6px; border-radius:50%; background:#50E3C2; }
+
+/* Tabs */
+.page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
+.page-tab:hover { color:rgba(255,255,255,0.8); }
+.page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
+.page-tab.home-tab { color:rgba(255,255,255,0.45); font-size:12px; }
+.page-tab.home-tab:hover { color:rgba(255,255,255,0.75); }
+
+/* Layout */
+.layout { max-width:1480px; margin:0 auto; padding:24px; display:grid; grid-template-columns:1fr; gap:20px; }
+
+/* Hero */
+.hero { background:var(--white); border-radius:var(--radius); padding:32px 36px; box-shadow:var(--shadow-sm); }
+.hero-eyebrow { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
+.hero h2 { font-size:28px; font-weight:700; color:var(--navy); margin-bottom:6px; line-height:1.4; }
+.hero .lead { font-size:14px; color:var(--navy); opacity:0.7; max-width:880px; line-height:1.8; }
+
+/* Disclaimer callout */
+.disclaimer { background:#FFFBEB; border:1px solid rgba(245,158,11,0.3); border-left:3px solid #F59E0B; border-radius:var(--radius-sm); padding:16px 20px; }
+.disclaimer-label { font-size:11px; font-weight:700; color:#92400E; letter-spacing:1px; margin-bottom:6px; }
+.disclaimer-text { font-size:13px; color:#78350F; line-height:1.75; }
+
+/* Card */
+.card { background:var(--white); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow-sm); }
+.card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; gap:16px; }
+.card-title-block { flex:1; }
+.card-title { font-size:11px; font-weight:700; color:var(--navy); opacity:0.65; letter-spacing:0.8px; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.card-title::before { content:''; display:inline-block; width:3px; height:14px; background:var(--teal); border-radius:2px; }
+.card-h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:6px; }
+.card-lead { font-size:13px; color:var(--navy); opacity:0.7; line-height:1.7; }
+
+/* AI activation callout */
+.ai-callout { background:#FFFBEB; border:1px solid rgba(230,0,126,0.18); border-left:3px solid var(--magenta); border-radius:var(--radius-sm); padding:14px 18px; margin-top:14px; }
+.ai-callout-label { font-size:10px; font-weight:700; color:var(--magenta); letter-spacing:1.2px; margin-bottom:6px; }
+.ai-callout-text { font-size:13px; color:var(--navy); line-height:1.7; }
+.ai-callout-text strong { color:var(--navy); font-weight:700; }
+
+/* Process flow */
+.flow-label { font-size:10px; font-weight:700; color:var(--navy); opacity:0.5; letter-spacing:1.2px; margin-top:18px; margin-bottom:10px; text-transform:uppercase; }
+.flow { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.flow-step { background:var(--white); border:1.5px solid var(--navy); border-radius:5px; padding:9px 14px; font-size:12px; font-weight:500; color:var(--navy); white-space:nowrap; }
+.flow-step.ai { background:var(--teal-light); border-color:var(--teal); color:var(--teal); }
+.flow-step.result { background:var(--navy); color:var(--white); border-color:var(--navy); }
+.flow-arrow { color:var(--navy); opacity:0.45; font-size:15px; line-height:1; }
+
+/* Result note */
+.result-note { background:var(--navy-soft); border-left:3px solid var(--navy); border-radius:var(--radius-sm); padding:14px 18px; margin-top:14px; }
+.result-note-label { font-size:10px; font-weight:700; color:var(--navy); letter-spacing:1px; margin-bottom:4px; }
+.result-note-text { font-size:13px; color:var(--navy); line-height:1.75; }
+.result-note-text strong { color:var(--navy); font-weight:700; }
+.result-note-text .highlight { color:var(--teal); font-weight:700; }
+
+/* Content type chips */
+.content-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.content-chip { display:inline-flex; align-items:center; gap:7px; padding:8px 14px; background:var(--grey-light); border:1px solid var(--grey-mid); border-radius:var(--radius-sm); font-size:12px; color:var(--navy); font-weight:500; }
+.content-chip .chip-mark { width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+
+/* Tags */
+.tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.tag { display:inline-flex; align-items:center; padding:3px 10px; background:var(--white); border:1px solid var(--grey-mid); border-radius:14px; font-size:11px; color:var(--navy); }
+.tag.teal { border-color:var(--teal-border); background:var(--teal-light); color:var(--teal); }
+
+/* Footer */
+.footer { text-align:center; padding:24px; font-size:11px; color:var(--navy); opacity:0.45; border-top:1px solid var(--grey-mid); margin-top:8px; }
+
+/* Responsive: Tablet (under 900px) */
+@media (max-width: 900px) {
+  .card-header { flex-wrap:wrap; }
+}
+
+/* Responsive: Mobile (under 600px) */
+@media (max-width: 600px) {
+  body { font-size:13px; line-height:1.65; }
+  .header { padding:10px 16px; flex-wrap:wrap; gap:8px; }
+  .header-left { gap:12px; flex-wrap:wrap; }
+  .header h1 { font-size:14px; }
+  .header .subtitle { font-size:10px; }
+  .header .meta { font-size:10px; }
+  .header .data-badge { font-size:10px; padding:3px 8px; }
+  .page-tabs { padding:0 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .page-tab { padding:8px 14px; font-size:12px; white-space:nowrap; flex-shrink:0; }
+  .layout { padding:12px; gap:12px; }
+  .hero { padding:20px 18px; }
+  .hero-eyebrow { font-size:10px; letter-spacing:1.5px; }
+  .hero h2 { font-size:22px; line-height:1.4; }
+  .hero .lead { font-size:13px; line-height:1.75; }
+  .disclaimer { padding:14px 16px; }
+  .disclaimer-text { font-size:12px; }
+  .card { padding:18px 16px; }
+  .card-header { flex-direction:column; gap:8px; margin-bottom:14px; }
+  .card-title { font-size:10px; }
+  .card-h2 { font-size:16px; line-height:1.45; }
+  .card-lead { font-size:12px; }
+  .ai-callout { padding:12px 14px; }
+  .ai-callout-label { font-size:9px; }
+  .ai-callout-text { font-size:12px; }
+  .flow-step { font-size:10.5px; padding:7px 10px; }
+  .flow-arrow { font-size:13px; }
+  .result-note { padding:12px 14px; }
+  .result-note-text { font-size:12px; }
+  .content-chip { font-size:11px; padding:6px 10px; }
+  .footer { padding:18px 12px; font-size:10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sticky-top">
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" style="text-decoration:none; color:inherit;">
+        <h1>AI活用ポートフォリオ</h1>
+        <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
+      </a>
+      <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
+    </div>
+    <div class="meta">
+      <span>横山 直紀</span>
+      <span class="meta-divider">/</span>
+      <span>2026.05</span>
+    </div>
+  </header>
+  <nav class="page-tabs">
+    <a class="page-tab home-tab" href="index.html">← TOP</a>
+    <a class="page-tab" href="project-management.html">プロジェクト管理</a>
+    <a class="page-tab" href="marketing.html">マーケティング戦略策定</a>
+    <a class="page-tab active" href="digital.html">デジタルマーケティング施策</a>
+  </nav>
+</div>
+
+<div class="layout">
+
+  <section class="hero">
+    <div class="hero-eyebrow">TAB 03 ・ DIGITAL MARKETING</div>
+    <h2>デジタルマーケティング施策のAI活用</h2>
+    <p class="lead">広告コピー、メルマガ、コンテンツ制作といったデジタルマーケティングの実行施策においても、AIを活用して「速く」「精度高く」回している。施策レベルは出稿実績やクリエイティブからクライアントが特定されやすいため、本タブでは具体的な成果物の掲載は控え、AIをどう活用しているかのアプローチ概要のみを示す。</p>
+  </section>
+
+  <section class="disclaimer">
+    <div class="disclaimer-label">▼ 掲載方針について</div>
+    <div class="disclaimer-text">施策レベルの成果物（実際の広告クリエイティブ・配信実績・記事など）は、内容からクライアントが特定されやすくなります。クライアントの機密保持を最優先するため、本タブでは具体的な成果物は掲載せず、「どのようなアプローチでAIを活用しているか」のプロセス概要のみを記載しています。</div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">01 ・ 顧客の声からの広告コピー・メッセージ生成</div>
+        <h3 class="card-h2">「顧客が実際に使った言葉」を起点に、刺さるコピーを量産する</h3>
+        <p class="card-lead">インタビューの文字起こしやサーベイの自由記述を、AIで構造的に分析。マーケター個人の感覚や思い込みではなく、顧客自身の言葉からインサイトを抽出し、ペルソナ別・ファネル位置別のコピー／メッセージ案を高速に量産する。</p>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        膨大な定性データ（インタビュー・サーベイ自由記述）を、人手では到底さばけない量でAIに分析させ、<strong>「顧客が繰り返し使う表現」「感情が動いている箇所」</strong>を抽出。そこからコピー案を量産し、A/Bテストで検証するサイクルを高速化。<strong>「コピーを書く」前に「顧客の言葉を集める」工程をAIで圧縮</strong>している。
+      </div>
+    </div>
+
+    <div class="flow-label">PROCESS</div>
+    <div class="flow">
+      <span class="flow-step">顧客の声（インタビュー / サーベイ）</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">AIで定性分析</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">インサイト抽出</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">ペルソナ別コピー量産</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">A/Bテストで検証</span>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">定性データ分析</span>
+      <span class="tag teal">パーセプションフロー®モデル</span>
+      <span class="tag teal">広告コピー</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">02 ・ メルマガの戦略的パーソナライズ</div>
+        <h3 class="card-h2">問い合わせ事例を起点に、カテゴリーエントリーポイントを広く押さえる</h3>
+        <p class="card-lead">実際に寄せられた問い合わせ事例を蓄積・分類し、「こうしたご相談をいただいており、解決可能です」という形のメルマガコンテンツをAIで生成。顧客が想起するさまざまな入口（カテゴリーエントリーポイント）を広く押さえ、ナーチャリングから商談化までを設計する。</p>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        蓄積された問い合わせ事例をAIでパターン分類し、<strong>「どんな悩みの入口があるか」を網羅的に抽出</strong>。各エントリーポイントに対応したメルマガ文案を生成することで、単発配信ではなく<strong>「顧客の多様な想起ルートを面で押さえる」設計</strong>を可能にしている。
+      </div>
+    </div>
+
+    <div class="flow-label">PROCESS</div>
+    <div class="flow">
+      <span class="flow-step">問い合わせ事例の蓄積</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">AIでパターン分類</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">エントリーポイント別の文案生成</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">配信・ナーチャリング</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step result">商談化</span>
+    </div>
+
+    <div class="result-note">
+      <div class="result-note-label">▼ 関連実績</div>
+      <div class="result-note-text">
+        クラウドワークス社の支援では、SEO記事制作・メルマガでのナーチャリング・LP改善などを通じて、<span class="highlight">メルマガ経由の商談数を8倍</span>に伸ばした（<strong>公開事例</strong>）。この成果は人によるアイデアも含む複合的なものだが、<strong>問い合わせ事例ベースのメルマガ設計は、その成果を生んだ一要因</strong>となった。
+      </div>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">カテゴリーエントリーポイント</span>
+      <span class="tag teal">メルマガ / ナーチャリング</span>
+      <span class="tag teal">商談化</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">03 ・ コンテンツ制作の高速化</div>
+        <h3 class="card-h2">構成設計から制作までをAIで圧縮し、人は価値判断に集中する</h3>
+        <p class="card-lead">ホワイトペーパー、SEO記事、Webサイトの構成案、バナーといった各種コンテンツの制作を、AIで高速化。構成設計・初稿生成までをAIで一気に進め、人はメッセージの精度・トンマナ・最終品質の判断に集中する。</p>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        「ゼロから書く」のではなく、<strong>構成設計と初稿生成をAIに任せ、人は"どの方向に磨くか"の判断に集中</strong>する分業。コンテンツの量産スピードを上げつつ、最終的な質の担保は人が担う。これにより、施策の試行回数そのものを増やしている。
+      </div>
+    </div>
+
+    <div class="flow-label">対象コンテンツ</div>
+    <div class="content-chips">
+      <span class="content-chip"><span class="chip-mark"></span>ホワイトペーパー</span>
+      <span class="content-chip"><span class="chip-mark"></span>SEO記事</span>
+      <span class="content-chip"><span class="chip-mark"></span>Webサイト構成案</span>
+      <span class="content-chip"><span class="chip-mark"></span>バナー</span>
+    </div>
+
+    <div class="flow-label">PROCESS</div>
+    <div class="flow">
+      <span class="flow-step">構成設計</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">AIで初稿生成</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">人によるブラッシュアップ（メッセージ・品質判断）</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">公開・配信</span>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">ホワイトペーパー</span>
+      <span class="tag teal">SEO記事</span>
+      <span class="tag teal">Webサイト構成</span>
+      <span class="tag teal">バナー制作</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    AI活用ポートフォリオ ・ デジタルマーケティング施策タブ ・ 横山 直紀 ・ 2026.05<br>
+    本タブには具体的な成果物を掲載しておりません。記載内容はすべてアプローチの概要であり、実在の企業・サービス・データとは関係ありません
+  </footer>
+
+</div>
+
+</body>
+</html>
