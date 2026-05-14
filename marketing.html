@@ -17,25 +17,25 @@
   --radius: 10px; --radius-sm: 6px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased; }
 
 /* Header */
 .sticky-top { position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
 .header { background:var(--navy); color:var(--white); padding:14px 32px; display:flex; align-items:center; justify-content:space-between; }
 .header-left { display:flex; align-items:center; gap:20px; }
-.header h1 { font-size:16px; font-weight:700; letter-spacing:0.3px; }
-.header .subtitle { font-size:11px; font-weight:300; opacity:0.6; margin-top:1px; }
-.header .meta { display:flex; align-items:center; gap:12px; font-size:11px; opacity:0.7; }
+.header h1 { font-size:17px; font-weight:700; letter-spacing:0.3px; }
+.header .subtitle { font-size:12px; font-weight:300; opacity:0.6; margin-top:1px; }
+.header .meta { display:flex; align-items:center; gap:12px; font-size:12px; opacity:0.7; }
 .header .meta-divider { opacity:0.4; }
-.header .data-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:20px; font-size:11px; }
+.header .data-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:20px; font-size:12px; }
 .header .data-badge .dot { width:6px; height:6px; border-radius:50%; background:#50E3C2; }
 
 /* Tabs */
 .page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
-.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:14px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
 .page-tab:hover { color:rgba(255,255,255,0.8); }
 .page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
-.page-tab.home-tab { color:rgba(255,255,255,0.45); font-size:12px; }
+.page-tab.home-tab { color:rgba(255,255,255,0.45); font-size:13px; }
 .page-tab.home-tab:hover { color:rgba(255,255,255,0.75); }
 
 /* Layout */
@@ -43,59 +43,60 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
 /* Hero */
 .hero { background:var(--white); border-radius:var(--radius); padding:32px 36px; box-shadow:var(--shadow-sm); }
-.hero-eyebrow { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
-.hero h2 { font-size:28px; font-weight:700; color:var(--navy); margin-bottom:6px; line-height:1.4; }
-.hero .lead { font-size:14px; color:var(--navy); opacity:0.7; max-width:880px; line-height:1.8; }
+.hero-eyebrow { font-size:12px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
+.hero h2 { font-size:30px; font-weight:700; color:var(--navy); margin-bottom:6px; line-height:1.4; }
+.hero .lead { font-size:15px; color:var(--navy); opacity:0.78; max-width:880px; line-height:1.85; }
 
 /* Card */
 .card { background:var(--white); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow-sm); }
 .card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px; gap:16px; }
 .card-title-block { flex:1; }
-.card-title { font-size:11px; font-weight:700; color:var(--navy); opacity:0.65; letter-spacing:0.8px; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.card-title { font-size:12px; font-weight:700; color:var(--navy); opacity:0.65; letter-spacing:0.8px; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
 .card-title::before { content:''; display:inline-block; width:3px; height:14px; background:var(--teal); border-radius:2px; }
-.card-h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:6px; }
-.card-lead { font-size:13px; color:var(--navy); opacity:0.7; line-height:1.7; }
-.card-badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; background:var(--teal-light); border:1px solid var(--teal-border); border-radius:12px; font-size:10px; font-weight:500; color:var(--teal); white-space:nowrap; }
+.card-h2 { font-size:20px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:6px; }
+.card-lead { font-size:14.5px; color:var(--navy); opacity:0.78; line-height:1.75; }
+.card-badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; background:var(--teal-light); border:1px solid var(--teal-border); border-radius:12px; font-size:11px; font-weight:500; color:var(--teal); white-space:nowrap; }
 .card-badge.dummy { background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25); }
 
 /* Value summary boxes */
 .value-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-top:14px; }
 .value-card { background:var(--teal-light); border-left:3px solid var(--teal); border-radius:var(--radius-sm); padding:14px 18px; }
-.value-card .value-label { font-size:10px; font-weight:700; color:var(--teal); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
-.value-card .value-text { font-size:13px; color:var(--navy); line-height:1.65; }
+.value-card .value-label { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+.value-card .value-text { font-size:14.5px; color:var(--navy); line-height:1.7; }
 .value-card .value-text strong { color:var(--navy); }
 
 /* AI activation callout */
 .ai-callout { background:#FFFBEB; border:1px solid rgba(230,0,126,0.18); border-left:3px solid var(--magenta); border-radius:var(--radius-sm); padding:14px 18px; margin-top:14px; }
-.ai-callout-label { font-size:10px; font-weight:700; color:var(--magenta); letter-spacing:1.2px; margin-bottom:6px; }
-.ai-callout-text { font-size:13px; color:var(--navy); line-height:1.7; }
+.ai-callout-label { font-size:11px; font-weight:700; color:var(--magenta); letter-spacing:1.2px; margin-bottom:6px; }
+.ai-callout-text { font-size:14.5px; color:var(--navy); line-height:1.75; }
 .ai-callout-text strong { color:var(--navy); font-weight:700; }
 
-/* iframe preview window */
+/* iframe preview window (compact preview + 詳しく見る) */
 .preview-window { margin-top:16px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--grey-mid); background:var(--grey-light); box-shadow:var(--shadow-md); }
-.preview-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 14px; background:var(--navy); color:var(--white); font-size:11px; }
-.preview-bar-left { display:flex; align-items:center; gap:10px; }
+.preview-bar { display:flex; align-items:center; gap:10px; padding:8px 14px; background:var(--navy); color:var(--white); font-size:11px; }
 .preview-dots { display:inline-flex; gap:5px; }
 .preview-dots span { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.2); }
 .preview-dots span.r { background:#FF6058; }
 .preview-dots span.y { background:#FFBD2E; }
 .preview-dots span.g { background:#28C940; }
 .preview-url { font-family:'SF Mono', Consolas, monospace; font-size:11px; color:rgba(255,255,255,0.65); }
-.preview-open { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; background:var(--teal); color:var(--white); border:none; border-radius:4px; font-size:10.5px; font-weight:500; cursor:pointer; text-decoration:none; font-family:'Noto Sans JP', sans-serif; transition:background 0.15s; }
-.preview-open:hover { background:#007A80; }
-.preview-frame { width:100%; height:600px; border:0; background:var(--white); display:block; }
-.preview-frame.tall { height:680px; }
-.preview-frame.medium { height:520px; }
+.preview-frame-wrap { position:relative; }
+.preview-frame { width:100%; height:300px; border:0; background:var(--white); display:block; pointer-events:none; }
+.preview-fade { position:absolute; left:0; right:0; bottom:0; height:64px; background:linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.97)); pointer-events:none; }
+.preview-cta { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; background:var(--white); border-top:1px solid var(--grey-mid); font-size:14px; font-weight:700; color:var(--teal); text-decoration:none; transition:background 0.15s; }
+.preview-cta:hover { background:var(--teal-light); }
+.preview-cta .cta-arrow { transition:transform 0.15s; }
+.preview-cta:hover .cta-arrow { transform:translateX(3px); }
 
 /* Two-stage journey */
 .stage-block { display:grid; grid-template-columns:60px 1fr; gap:14px; margin-top:18px; align-items:start; }
 .stage-num { width:50px; height:50px; background:var(--navy); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; flex-shrink:0; }
 .stage-num.step2 { background:var(--teal); }
 .stage-body { padding-top:6px; }
-.stage-label { font-size:10px; font-weight:700; color:var(--teal); letter-spacing:1.5px; margin-bottom:4px; text-transform:uppercase; }
+.stage-label { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:1.5px; margin-bottom:4px; text-transform:uppercase; }
 .stage-label.step2 { color:var(--teal); }
-.stage-title { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:4px; }
-.stage-desc { font-size:13px; color:var(--navy); opacity:0.75; line-height:1.7; }
+.stage-title { font-size:16.5px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.stage-desc { font-size:14.5px; color:var(--navy); opacity:0.8; line-height:1.75; }
 
 .stage-arrow-down { text-align:center; font-size:22px; color:var(--navy); opacity:0.3; padding:10px 0; }
 
@@ -118,9 +119,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 @media (max-width: 900px) {
   .card-header { flex-wrap:wrap; }
   .value-grid { grid-template-columns:1fr; }
-  .preview-frame { height:480px; }
-  .preview-frame.tall { height:540px; }
-  .preview-frame.medium { height:420px; }
+  .preview-frame { height:260px; }
 }
 
 /* Responsive: Mobile (under 600px) */
@@ -159,12 +158,10 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .ai-callout-label { font-size:9px; }
   .ai-callout-text { font-size:12px; }
 
-  .preview-frame { height:380px; }
-  .preview-frame.tall { height:440px; }
-  .preview-frame.medium { height:340px; }
+  .preview-frame { height:220px; }
   .preview-bar { padding:6px 10px; }
   .preview-url { font-size:9.5px; }
-  .preview-open { font-size:9.5px; padding:3px 8px; }
+  .preview-cta { font-size:13px; padding:12px; }
 
   .stage-block { grid-template-columns:40px 1fr; gap:10px; }
   .stage-num { width:36px; height:36px; font-size:14px; }
@@ -247,13 +244,14 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
     <div class="preview-window">
       <div class="preview-bar">
-        <div class="preview-bar-left">
-          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
-          <span class="preview-url">deliverables/dashboard.html</span>
-        </div>
-        <a class="preview-open" href="deliverables/dashboard.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+        <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+        <span class="preview-url">deliverables/dashboard.html</span>
       </div>
-      <iframe class="preview-frame tall" src="deliverables/dashboard.html" title="定量リサーチダッシュボード プレビュー" loading="lazy"></iframe>
+      <div class="preview-frame-wrap">
+        <iframe class="preview-frame" src="deliverables/dashboard.html" title="定量リサーチダッシュボード プレビュー" loading="lazy"></iframe>
+        <div class="preview-fade"></div>
+      </div>
+      <a class="preview-cta" href="deliverables/dashboard.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
     </div>
 
     <div class="tag-row">
@@ -296,13 +294,14 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
     <div class="preview-window">
       <div class="preview-bar">
-        <div class="preview-bar-left">
-          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
-          <span class="preview-url">deliverables/customer-journey-v1.html</span>
-        </div>
-        <a class="preview-open" href="deliverables/customer-journey-v1.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+        <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+        <span class="preview-url">deliverables/customer-journey-v1.html</span>
       </div>
-      <iframe class="preview-frame" src="deliverables/customer-journey-v1.html" title="カスタマージャーニー v1 プレビュー" loading="lazy"></iframe>
+      <div class="preview-frame-wrap">
+        <iframe class="preview-frame" src="deliverables/customer-journey-v1.html" title="カスタマージャーニー v1 プレビュー" loading="lazy"></iframe>
+        <div class="preview-fade"></div>
+      </div>
+      <a class="preview-cta" href="deliverables/customer-journey-v1.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
     </div>
 
     <div class="stage-arrow-down">↓</div>
@@ -318,13 +317,14 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
     <div class="preview-window">
       <div class="preview-bar">
-        <div class="preview-bar-left">
-          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
-          <span class="preview-url">deliverables/customer-journey-final.html</span>
-        </div>
-        <a class="preview-open" href="deliverables/customer-journey-final.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+        <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+        <span class="preview-url">deliverables/customer-journey-final.html</span>
       </div>
-      <iframe class="preview-frame tall" src="deliverables/customer-journey-final.html" title="カスタマージャーニー 最終版 プレビュー" loading="lazy"></iframe>
+      <div class="preview-frame-wrap">
+        <iframe class="preview-frame" src="deliverables/customer-journey-final.html" title="カスタマージャーニー 最終版 プレビュー" loading="lazy"></iframe>
+        <div class="preview-fade"></div>
+      </div>
+      <a class="preview-cta" href="deliverables/customer-journey-final.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
     </div>
 
     <div class="tag-row">

@@ -57,6 +57,14 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .card-cta-arrow { transition:transform 0.2s; }
 .card:hover .card-cta-arrow { transform:translateX(3px); }
 
+/* Closing note */
+.closing { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:44px 48px; margin-top:32px; }
+.closing-eyebrow { font-size:12px; font-weight:700; color:var(--teal); letter-spacing:3px; margin-bottom:12px; }
+.closing-title { font-size:22px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:22px; }
+.closing-body p { font-size:14.5px; color:rgba(27,34,76,0.82); line-height:2; margin-bottom:18px; }
+.closing-body p:last-child { margin-bottom:0; }
+.closing-body strong { color:var(--navy); font-weight:700; }
+
 /* Footer */
 .footer { text-align:center; padding:32px 24px; font-size:11px; color:var(--navy); opacity:0.45; margin-top:36px; border-top:1px solid var(--grey-mid); }
 
@@ -66,6 +74,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .layout { padding:32px 18px 24px; }
   .hero h2 { font-size:26px; }
   .hero .lead { font-size:14px; }
+  .closing { padding:32px 28px; }
 }
 @media (max-width: 600px) {
   .header { padding:12px 16px; flex-wrap:wrap; gap:6px; }
@@ -81,6 +90,10 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .card-body { padding:20px 20px 22px; }
   .card-title { font-size:16px; }
   .card-desc { font-size:12.5px; }
+  .closing { padding:24px 20px; margin-top:24px; }
+  .closing-eyebrow { font-size:11px; letter-spacing:2px; }
+  .closing-title { font-size:18px; }
+  .closing-body p { font-size:13.5px; line-height:1.95; }
 }
 </style>
 </head>
@@ -102,8 +115,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
   <section class="hero">
     <div class="hero-eyebrow">AI ACTIVATION PORTFOLIO</div>
-    <h2>マーケと事業成長の現場で、<br>AIをどう実践活用しているか</h2>
-    <p class="lead">日々の業務でAIの活用方法を幅広く研究・実践していますが、中でも<strong>マーケティングの文脈で特に深く研究し、成果につなげているのが以下の3つの取り組み</strong>です。それぞれ、実際の運用やアウトプットのイメージとともに整理しています。</p>
+    <h2>マーケティング支援プロジェクトの現場で、<br>AIをどのように活用しているか</h2>
+    <p class="lead">日々の業務でAIの活用方法を幅広く研究・実践していますが、中でも<strong>マーケティング支援の文脈で特に深く研究し、成果につなげているのが以下の3つの取り組み</strong>です。それぞれ、実際の運用やアウトプットのイメージとともに整理しています。</p>
     <div class="org-note">
       これらの取り組みは<strong>社内の他メンバーにも展開・還元</strong>しており、組織全体のAI活用力の底上げにも貢献しています。
     </div>
@@ -204,6 +217,18 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
     </a>
 
   </div>
+
+  <section class="closing">
+    <div class="closing-eyebrow">CLOSING NOTE</div>
+    <h2 class="closing-title">AI活用を積極的に進めた中での気付き</h2>
+    <div class="closing-body">
+      <p>最後に、生成AIの登場以来、AI活用を自分なりに進めてきた中での気付きをご共有できればと思います。</p>
+      <p>AIによって、現職でも間違いなくコンサルティングの質が上がった実感があり、事実お客様の満足や引き合いにも繋がっています。ただ一方で、個人としての業務効率化ができたかという観点では理想と反する部分もあります。検討できる量と深さが人間の限界を超えてしまい、ボトルネックが人間側に残されたまま中々解消しないという壁にぶつかる日々です。</p>
+      <p>加えて、自分が成果を出した上で最もインパクトのあった取り組みを振り返っても、AI活用というわけではありませんでした。支援の中でクライアントと最低限の信頼関係を作った後は、足繁くオフィスに通って直接お会いしたり、会食やサウナに行ったりして、そこでしか得られない生の声を聞くことが最も大きな財産になったと捉えています。</p>
+      <p>結局、AIを通じてアウトプットではなくアウトカムを出すうえでは、<strong>「人を動かすためのAI活用」</strong>になっていないといけないと感じます。現在支援の中でAIを活用する際にも、クライアントに出すアウトプットは自分で0から作ったり、AIっぽさが残る部分はすべて消したりすることに苦心しています。<br>（本ポートフォリオはAI活用のスキルをご理解いただくためのものとして、例外的にAIっぽさを残している形になりますが…）</p>
+      <p>今後のキャリアにおいて、AIを通じて検討の質や生産性を上げられたとしても、最終的には人と人の間にある信頼関係が全ての基礎である点を忘れずにいたいと思っております。これまで培ってきた専門性や経験は1つの武器でしかなく、それを信頼関係の構築に活かせてこそ意味があるという想いを持って、貴社のデジタルマーケティングポジションを志望いたします。</p>
+    </div>
+  </section>
 
   <footer class="footer">
     AI活用ポートフォリオ ・ 横山 直紀 ・ 2026.05<br>
