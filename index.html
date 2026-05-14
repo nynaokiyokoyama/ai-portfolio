@@ -32,7 +32,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
 /* Tabs */
 .page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
-.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
 .page-tab:hover { color:rgba(255,255,255,0.8); }
 .page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
 
@@ -162,10 +162,16 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .tag.teal { border-color:var(--teal-border); background:var(--teal-light); color:var(--teal); }
 .tag.dummy { background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25); font-size:10px; font-weight:500; }
 
+/* Closing note */
+.closing-note { background:var(--navy); color:var(--white); border-radius:var(--radius); padding:20px 26px; display:flex; align-items:flex-start; gap:14px; }
+.closing-note-icon { font-size:18px; color:#9EE6FF; flex-shrink:0; line-height:1.6; }
+.closing-note-text { font-size:13.5px; line-height:1.8; }
+.closing-note-text strong { color:#9EE6FF; font-weight:700; }
+
 /* Footer */
 .footer { text-align:center; padding:24px; font-size:11px; color:var(--navy); opacity:0.45; border-top:1px solid var(--grey-mid); margin-top:8px; }
 
-/* Responsive */
+/* Responsive: Tablet (under 900px) */
 @media (max-width: 900px) {
   .data-sources { grid-template-columns:1fr; }
   .trio { grid-template-columns:1fr; }
@@ -174,7 +180,94 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .ba-arrow { transform:rotate(90deg); padding:4px 0; }
   .arch-container { padding-left:24px; }
   .cycle-loop, .cycle-loop-label { display:none; }
+  .card-header { flex-wrap:wrap; }
 }
+
+/* Responsive: Mobile (under 600px) */
+@media (max-width: 600px) {
+  body { font-size:13px; line-height:1.65; }
+
+  .header { padding:10px 16px; flex-wrap:wrap; gap:8px; }
+  .header-left { gap:12px; flex-wrap:wrap; }
+  .header h1 { font-size:14px; }
+  .header .subtitle { font-size:10px; }
+  .header .meta { font-size:10px; }
+  .header .data-badge { font-size:10px; padding:3px 8px; }
+
+  .page-tabs { padding:0 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .page-tab { padding:8px 14px; font-size:12px; white-space:nowrap; flex-shrink:0; }
+
+  .layout { padding:12px; gap:12px; }
+
+  .hero { padding:20px 18px; }
+  .hero-eyebrow { font-size:10px; letter-spacing:1.5px; }
+  .hero h2 { font-size:22px; line-height:1.4; }
+  .hero .lead { font-size:13px; line-height:1.75; }
+
+  .card { padding:18px 16px; }
+  .card-header { flex-direction:column; gap:8px; margin-bottom:14px; }
+  .card-title { font-size:10px; }
+  .card-h2 { font-size:16px; line-height:1.45; }
+  .card-lead { font-size:12px; }
+  .card-badge { font-size:9px; padding:2px 8px; }
+
+  .ba-col { padding:14px 16px; }
+  .ba-label { font-size:9px; }
+  .ba-list { font-size:12px; padding-left:16px; }
+
+  .arch-container { padding:18px 12px; }
+  .arch-layer-label { gap:8px; margin-bottom:10px; }
+  .arch-layer-num { width:20px; height:20px; font-size:9px; }
+  .arch-layer-name { font-size:9px; letter-spacing:1px; }
+  .arch-layer-desc { font-size:10px; margin-left:4px; }
+  .arch-arrow { font-size:18px; padding:4px 0; }
+
+  .ds-group { padding:10px 12px; }
+  .ds-group-label { font-size:9px; margin-bottom:8px; }
+  .ds-item { font-size:11px; }
+  .ds-logo { width:16px; height:16px; font-size:9px; }
+  .ds-checkup-action { font-size:11px; }
+  .ds-checkup-action .checkup-cmd { font-size:10px; padding:1px 6px; }
+
+  .arch-node-pm { padding:12px 16px; }
+  .arch-node-pm-title { font-size:13px; }
+  .arch-node-pm-desc { font-size:10.5px; }
+  .arch-node { padding:10px 12px; }
+  .arch-node-title { font-size:12px; }
+  .arch-node-desc { font-size:10px; }
+  .arch-node.human { padding:14px 16px; }
+  .arch-node.human .arch-node-title { font-size:13px; }
+
+  .spec-stage { padding:12px 14px; }
+  .spec-stage-label { font-size:9px; letter-spacing:0.8px; flex-wrap:wrap; }
+  .spec-stage-num { width:20px; height:20px; font-size:10px; }
+  .spec-stage-desc { font-size:10px; }
+
+  .duo { grid-template-columns:1fr; gap:8px; }
+  .duo-arrow { font-size:20px; padding:4px 0; transform:rotate(90deg); }
+  .quartet { grid-template-columns:1fr; }
+
+  .arch-boundary { font-size:10px; padding:8px 12px; }
+
+  .sample-output { padding:16px 14px; font-size:11px; line-height:1.7; }
+  .sample-output-header { padding-bottom:10px; margin-bottom:12px; }
+  .sample-output-filename { font-size:11px; }
+  .sample-output-tag { font-size:9px; padding:2px 8px; }
+  .md-h1 { font-size:13px; }
+  .md-meta { font-size:10px; }
+  .md-h2 { font-size:12px; }
+  .md-li { font-size:11px; padding-left:14px; }
+  .md-quote { font-size:11px; padding-left:10px; }
+  .md-table { font-size:9.5px; display:block; overflow-x:auto; white-space:nowrap; }
+  .md-table th, .md-table td { padding:5px 7px; }
+
+  .tag { font-size:10px; padding:2px 8px; }
+  .tag.dummy { font-size:9px; }
+
+  .footer { padding:18px 12px; font-size:10px; }
+}
+
+/* Mobile head/viewport meta hint - set in <head> */
 </style>
 </head>
 <body>
@@ -195,9 +288,9 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
     </div>
   </header>
   <nav class="page-tabs">
-    <button class="page-tab active">プロジェクト管理</button>
-    <button class="page-tab">マーケティング戦略策定</button>
-    <button class="page-tab">デジタルマーケティング施策</button>
+    <a class="page-tab active" href="index.html">プロジェクト管理</a>
+    <a class="page-tab" href="marketing.html">マーケティング戦略策定</a>
+    <a class="page-tab" href="digital.html">デジタルマーケティング施策</a>
   </nav>
 </div>
 
@@ -419,6 +512,11 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
           <div class="arch-node-desc">承認 ・ 送信 ・ 最終編集 ・ 外部アクション</div>
         </div>
       </div>
+    </div>
+
+    <div class="closing-note">
+      <span class="closing-note-icon">→</span>
+      <span class="closing-note-text">貴社においても、既に活用されている<strong>「本部長AIエージェント」</strong>を、この役割別AI人格群の一つとして組み込むことで、同様の取り組みを進展させられると考えます。</span>
     </div>
   </section>
 

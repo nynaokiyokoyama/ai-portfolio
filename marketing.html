@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用ポートフォリオ | マーケティング戦略策定 - 横山 直紀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B224C; --navy-light: #3A4580; --navy-soft: #E8EAF2;
+  --teal: #008F96; --teal-light: rgba(0,143,150,0.06); --teal-hover: rgba(0,143,150,0.12); --teal-border: rgba(0,143,150,0.2);
+  --magenta: #E6007E; --magenta-light: rgba(230,0,126,0.08);
+  --grey: #D9D9D9; --grey-light: #F5F5F7; --grey-mid: #E8E8EC; --page-bg: #F0F1F5;
+  --white: #FFFFFF; --red: #C44; --red-light: #FEF2F2;
+  --shadow-sm: 0 1px 2px rgba(27,34,76,0.06); --shadow-md: 0 2px 8px rgba(27,34,76,0.08);
+  --radius: 10px; --radius-sm: 6px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
+
+/* Header */
+.sticky-top { position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
+.header { background:var(--navy); color:var(--white); padding:14px 32px; display:flex; align-items:center; justify-content:space-between; }
+.header-left { display:flex; align-items:center; gap:20px; }
+.header h1 { font-size:16px; font-weight:700; letter-spacing:0.3px; }
+.header .subtitle { font-size:11px; font-weight:300; opacity:0.6; margin-top:1px; }
+.header .meta { display:flex; align-items:center; gap:12px; font-size:11px; opacity:0.7; }
+.header .meta-divider { opacity:0.4; }
+.header .data-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.1); padding:4px 12px; border-radius:20px; font-size:11px; }
+.header .data-badge .dot { width:6px; height:6px; border-radius:50%; background:#50E3C2; }
+
+/* Tabs */
+.page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
+.page-tab:hover { color:rgba(255,255,255,0.8); }
+.page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); }
+
+/* Layout */
+.layout { max-width:1480px; margin:0 auto; padding:24px; display:grid; grid-template-columns:1fr; gap:20px; }
+
+/* Hero */
+.hero { background:var(--white); border-radius:var(--radius); padding:32px 36px; box-shadow:var(--shadow-sm); }
+.hero-eyebrow { font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
+.hero h2 { font-size:28px; font-weight:700; color:var(--navy); margin-bottom:6px; line-height:1.4; }
+.hero .lead { font-size:14px; color:var(--navy); opacity:0.7; max-width:880px; line-height:1.8; }
+
+/* Card */
+.card { background:var(--white); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow-sm); }
+.card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px; gap:16px; }
+.card-title-block { flex:1; }
+.card-title { font-size:11px; font-weight:700; color:var(--navy); opacity:0.65; letter-spacing:0.8px; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.card-title::before { content:''; display:inline-block; width:3px; height:14px; background:var(--teal); border-radius:2px; }
+.card-h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:6px; }
+.card-lead { font-size:13px; color:var(--navy); opacity:0.7; line-height:1.7; }
+.card-badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; background:var(--teal-light); border:1px solid var(--teal-border); border-radius:12px; font-size:10px; font-weight:500; color:var(--teal); white-space:nowrap; }
+.card-badge.dummy { background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25); }
+
+/* Value summary boxes */
+.value-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-top:14px; }
+.value-card { background:var(--teal-light); border-left:3px solid var(--teal); border-radius:var(--radius-sm); padding:14px 18px; }
+.value-card .value-label { font-size:10px; font-weight:700; color:var(--teal); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+.value-card .value-text { font-size:13px; color:var(--navy); line-height:1.65; }
+.value-card .value-text strong { color:var(--navy); }
+
+/* AI activation callout */
+.ai-callout { background:#FFFBEB; border:1px solid rgba(230,0,126,0.18); border-left:3px solid var(--magenta); border-radius:var(--radius-sm); padding:14px 18px; margin-top:14px; }
+.ai-callout-label { font-size:10px; font-weight:700; color:var(--magenta); letter-spacing:1.2px; margin-bottom:6px; }
+.ai-callout-text { font-size:13px; color:var(--navy); line-height:1.7; }
+.ai-callout-text strong { color:var(--navy); font-weight:700; }
+
+/* iframe preview window */
+.preview-window { margin-top:16px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--grey-mid); background:var(--grey-light); box-shadow:var(--shadow-md); }
+.preview-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 14px; background:var(--navy); color:var(--white); font-size:11px; }
+.preview-bar-left { display:flex; align-items:center; gap:10px; }
+.preview-dots { display:inline-flex; gap:5px; }
+.preview-dots span { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.2); }
+.preview-dots span.r { background:#FF6058; }
+.preview-dots span.y { background:#FFBD2E; }
+.preview-dots span.g { background:#28C940; }
+.preview-url { font-family:'SF Mono', Consolas, monospace; font-size:11px; color:rgba(255,255,255,0.65); }
+.preview-open { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; background:var(--teal); color:var(--white); border:none; border-radius:4px; font-size:10.5px; font-weight:500; cursor:pointer; text-decoration:none; font-family:'Noto Sans JP', sans-serif; transition:background 0.15s; }
+.preview-open:hover { background:#007A80; }
+.preview-frame { width:100%; height:600px; border:0; background:var(--white); display:block; }
+.preview-frame.tall { height:680px; }
+.preview-frame.medium { height:520px; }
+
+/* Two-stage journey */
+.stage-block { display:grid; grid-template-columns:60px 1fr; gap:14px; margin-top:18px; align-items:start; }
+.stage-num { width:50px; height:50px; background:var(--navy); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; flex-shrink:0; }
+.stage-num.step2 { background:var(--teal); }
+.stage-body { padding-top:6px; }
+.stage-label { font-size:10px; font-weight:700; color:var(--teal); letter-spacing:1.5px; margin-bottom:4px; text-transform:uppercase; }
+.stage-label.step2 { color:var(--teal); }
+.stage-title { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.stage-desc { font-size:13px; color:var(--navy); opacity:0.75; line-height:1.7; }
+
+.stage-arrow-down { text-align:center; font-size:22px; color:var(--navy); opacity:0.3; padding:10px 0; }
+
+/* Image placeholder for final journey */
+.journey-image { margin-top:14px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--grey-mid); box-shadow:var(--shadow-sm); background:var(--white); position:relative; }
+.journey-image img { width:100%; display:block; }
+.journey-image-placeholder { padding:60px 24px; text-align:center; background:var(--grey-light); color:var(--navy); opacity:0.55; font-size:13px; line-height:1.7; }
+.journey-image-placeholder .small { font-size:11px; opacity:0.85; margin-top:8px; display:block; }
+
+/* Tags */
+.tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.tag { display:inline-flex; align-items:center; padding:3px 10px; background:var(--white); border:1px solid var(--grey-mid); border-radius:14px; font-size:11px; color:var(--navy); }
+.tag.teal { border-color:var(--teal-border); background:var(--teal-light); color:var(--teal); }
+.tag.dummy { background:var(--red-light); color:var(--red); border-color:rgba(196,68,68,0.25); font-size:10px; font-weight:500; }
+
+/* Footer */
+.footer { text-align:center; padding:24px; font-size:11px; color:var(--navy); opacity:0.45; border-top:1px solid var(--grey-mid); margin-top:8px; }
+
+/* Responsive: Tablet (under 900px) */
+@media (max-width: 900px) {
+  .card-header { flex-wrap:wrap; }
+  .value-grid { grid-template-columns:1fr; }
+  .preview-frame { height:480px; }
+  .preview-frame.tall { height:540px; }
+  .preview-frame.medium { height:420px; }
+}
+
+/* Responsive: Mobile (under 600px) */
+@media (max-width: 600px) {
+  body { font-size:13px; line-height:1.65; }
+
+  .header { padding:10px 16px; flex-wrap:wrap; gap:8px; }
+  .header-left { gap:12px; flex-wrap:wrap; }
+  .header h1 { font-size:14px; }
+  .header .subtitle { font-size:10px; }
+  .header .meta { font-size:10px; }
+  .header .data-badge { font-size:10px; padding:3px 8px; }
+
+  .page-tabs { padding:0 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .page-tab { padding:8px 14px; font-size:12px; white-space:nowrap; flex-shrink:0; }
+
+  .layout { padding:12px; gap:12px; }
+
+  .hero { padding:20px 18px; }
+  .hero-eyebrow { font-size:10px; letter-spacing:1.5px; }
+  .hero h2 { font-size:22px; line-height:1.4; }
+  .hero .lead { font-size:13px; line-height:1.75; }
+
+  .card { padding:18px 16px; }
+  .card-header { flex-direction:column; gap:8px; margin-bottom:14px; }
+  .card-title { font-size:10px; }
+  .card-h2 { font-size:16px; line-height:1.45; }
+  .card-lead { font-size:12px; }
+  .card-badge { font-size:9px; padding:2px 8px; }
+
+  .value-card { padding:12px 14px; }
+  .value-card .value-label { font-size:9px; }
+  .value-card .value-text { font-size:12px; }
+
+  .ai-callout { padding:12px 14px; }
+  .ai-callout-label { font-size:9px; }
+  .ai-callout-text { font-size:12px; }
+
+  .preview-frame { height:380px; }
+  .preview-frame.tall { height:440px; }
+  .preview-frame.medium { height:340px; }
+  .preview-bar { padding:6px 10px; }
+  .preview-url { font-size:9.5px; }
+  .preview-open { font-size:9.5px; padding:3px 8px; }
+
+  .stage-block { grid-template-columns:40px 1fr; gap:10px; }
+  .stage-num { width:36px; height:36px; font-size:14px; }
+  .stage-title { font-size:14px; }
+  .stage-desc { font-size:12px; }
+
+  .tag { font-size:10px; padding:2px 8px; }
+  .footer { padding:18px 12px; font-size:10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sticky-top">
+  <header class="header">
+    <div class="header-left">
+      <div>
+        <h1>AI活用ポートフォリオ</h1>
+        <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
+      </div>
+      <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
+    </div>
+    <div class="meta">
+      <span>横山 直紀</span>
+      <span class="meta-divider">/</span>
+      <span>2026.05</span>
+    </div>
+  </header>
+  <nav class="page-tabs">
+    <a class="page-tab" href="index.html">プロジェクト管理</a>
+    <a class="page-tab active" href="marketing.html">マーケティング戦略策定</a>
+    <a class="page-tab" href="digital.html">デジタルマーケティング施策</a>
+  </nav>
+</div>
+
+<div class="layout">
+
+  <section class="hero">
+    <div class="hero-eyebrow">TAB 02 ・ MARKETING STRATEGY</div>
+    <h2>マーケティング戦略策定のAI活用</h2>
+    <p class="lead">顧客理解と戦略策定のサイクルを、AIで「速く」「精度を上げて」回す。関係者の多い意思決定の場でも、議論しながら「このセグメントだけ見たい」「業種でクロスしたい」といった問いに即座に応えられる仕組みを構築。定量リサーチの可視化からカスタマージャーニーの設計まで、AI活用の中身を実際の成果物とともに示す。</p>
+    <p style="font-size:11.5px; color:var(--navy); opacity:0.5; margin-top:14px; line-height:1.7; border-top:1px dashed var(--grey-mid); padding-top:12px;">※ なお、本資料に含まれるサンプルデータはすべてダミー数値に置き換えた上で、内容も汎用化しております。実在の企業・サービス・人物・データとは関係ありません。</p>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">01 ・ 定量リサーチダッシュボード</div>
+        <h3 class="card-h2">AIで「議論中の問い」にその場で応える可視化基盤を構築</h3>
+        <p class="card-lead">社用車管理SaaSに関するUsage&Attitude調査の結果を、Web上でリアルタイムにフィルタ・クロス集計・可視化できるダッシュボードをAIで構築。スプレッドシートでの集計作業を廃止し、議論しながら即座に「このデータどう？」に応える環境を実現している。</p>
+      </div>
+      <span class="card-badge dummy">本データはダミーデータです</span>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-label">VALUE 01</div>
+        <div class="value-text"><strong>意思決定の高速化</strong>：MTG中の「業種でクロスしたい」「特定セグメントだけ見たい」をその場で実行</div>
+      </div>
+      <div class="value-card">
+        <div class="value-label">VALUE 02</div>
+        <div class="value-text"><strong>分析精度の向上</strong>：複雑な絞り込み条件 (AND/OR/除外) を組み合わせた多変量分析が、誤りなく即実行できる</div>
+      </div>
+      <div class="value-card">
+        <div class="value-label">VALUE 03</div>
+        <div class="value-text"><strong>関係者間の認識統一</strong>：同じデータを全員が同じ画面で見ながら議論。前提のすり合わせが不要に</div>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        調査票の構造とローデータをAIに渡し、<strong>ダッシュボードのHTML/JS/Chart.jsコードを直接生成</strong>。
+        要件の追加・変更（「業種フィルタを追加したい」「クロス集計の見せ方を変えたい」）にも、
+        AIで即対応してダッシュボード自体を更新する。<strong>「人がExcelで集計する」プロセスを廃止</strong>し、
+        AIに集計ロジック自体を実装させる発想。
+      </div>
+    </div>
+
+    <div class="preview-window">
+      <div class="preview-bar">
+        <div class="preview-bar-left">
+          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+          <span class="preview-url">deliverables/dashboard.html</span>
+        </div>
+        <a class="preview-open" href="deliverables/dashboard.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+      </div>
+      <iframe class="preview-frame tall" src="deliverables/dashboard.html" title="定量リサーチダッシュボード プレビュー" loading="lazy"></iframe>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">Chart.js</span>
+      <span class="tag teal">HTML / JS / CSS</span>
+      <span class="tag teal">U&amp;A調査</span>
+      <span class="tag teal">クロス集計</span>
+      <span class="tag dummy">本データはダミーデータです</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">02 ・ カスタマージャーニー設計</div>
+        <h3 class="card-h2">定量データから仮説 → 定性インタビューで検証する2段階プロセス</h3>
+        <p class="card-lead">通常、カスタマージャーニーは定性インタビュー中心で「観察」から組み立てるが、調査対象が広く関係者も多い場合、初期の仮説出しに時間がかかる。AIを活用することで、<strong>まず定量調査データから"仮説ジャーニー"を高速に組み立て、それを定性インタビューで検証・修正する</strong>2段階の進め方を実現している。</p>
+      </div>
+      <span class="card-badge dummy">本データはダミーデータです</span>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        <strong>Step 1（仮説化）</strong>では、調査票の設問とローデータをAIに渡し、購買プロセスのフェーズ・関係者・行動・関心事を構造的に抽出して、初版ジャーニーを生成。
+        <strong>Step 2（検証・修正）</strong>では、定性インタビュー文字起こしをAIで分析し、初版との差分を抽出して最終版に統合。
+        「定量で仮説、定性で検証」というリサーチの王道を、AIで圧倒的に高速化している。
+      </div>
+    </div>
+
+    <div class="stage-block">
+      <div class="stage-num">1</div>
+      <div class="stage-body">
+        <div class="stage-label">STEP 1 ・ 定量調査データから仮説ジャーニーを生成</div>
+        <div class="stage-title">調査票とローデータをAIに渡し、初版ジャーニーを構造化</div>
+        <div class="stage-desc">フェーズ（課題認識なし → 課題認識 → 解決策の検討 → 要件定義 → 選定 → 導入）と、関係者（経営者・管理者・現場・外部関係者）を軸に、購買プロセスを構造的に抽出。フィルタリングして特定セグメントの動線も即座に可視化できる初版を生成する。</div>
+      </div>
+    </div>
+
+    <div class="preview-window">
+      <div class="preview-bar">
+        <div class="preview-bar-left">
+          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+          <span class="preview-url">deliverables/customer-journey-v1.html</span>
+        </div>
+        <a class="preview-open" href="deliverables/customer-journey-v1.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+      </div>
+      <iframe class="preview-frame" src="deliverables/customer-journey-v1.html" title="カスタマージャーニー v1 プレビュー" loading="lazy"></iframe>
+    </div>
+
+    <div class="stage-arrow-down">↓</div>
+
+    <div class="stage-block">
+      <div class="stage-num step2">2</div>
+      <div class="stage-body">
+        <div class="stage-label step2">STEP 2 ・ 定性インタビューで検証・修正して最終版へ</div>
+        <div class="stage-title">N=1インタビュー文字起こしから差分を抽出、ジャーニーを精緻化</div>
+        <div class="stage-desc">Step 1の初版を持って関係者（経営者・現場・外部関係者）にインタビューを実施。文字起こしをAIで分析し、定量では捉えきれなかった「なぜそうしたのか」「実際にはどう感じていたか」を抽出。その内容を人間が総合的に判断した上でアップデートし、最終版ジャーニーに統合する。</div>
+      </div>
+    </div>
+
+    <div class="preview-window">
+      <div class="preview-bar">
+        <div class="preview-bar-left">
+          <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+          <span class="preview-url">deliverables/customer-journey-final.html</span>
+        </div>
+        <a class="preview-open" href="deliverables/customer-journey-final.html" target="_blank" rel="noopener">フルサイズで開く ↗</a>
+      </div>
+      <iframe class="preview-frame tall" src="deliverables/customer-journey-final.html" title="カスタマージャーニー 最終版 プレビュー" loading="lazy"></iframe>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">N=1インタビュー</span>
+      <span class="tag teal">パーセプションフロー®モデル</span>
+      <span class="tag teal">カスタマージャーニーマップ</span>
+      <span class="tag dummy">本データはダミーデータです</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    AI活用ポートフォリオ ・ マーケティング戦略策定タブ ・ 横山 直紀 ・ 2026.05<br>
+    本資料に含まれるサンプルデータはすべて架空のものであり、実在する企業・人物とは関係ありません
+  </footer>
+
+</div>
+
+</body>
+</html>

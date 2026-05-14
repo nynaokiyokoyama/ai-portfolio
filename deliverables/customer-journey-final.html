@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カスタマージャーニー (最終版) - 社用車管理SaaS市場</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B224C; --navy-light: #3A4580; --navy-deep: #131838;
+  --teal: #008F96; --teal-light: rgba(0,143,150,0.08);
+  --magenta: #E6007E;
+  --grey: #D9D9D9; --grey-light: #F5F5F7; --grey-mid: #E8E8EC;
+  --white: #FFFFFF; --page-bg: #F8F8FA;
+  --note-bg: #F3F4F8;
+  --shadow-sm: 0 1px 2px rgba(27,34,76,0.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); font-size:13px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+.dummy-banner { background:#FEF3C7; color:#92400E; padding:10px 24px; text-align:center; font-size:12px; font-weight:700; letter-spacing:0.5px; border-bottom:2px solid #F59E0B; }
+.cj-container { padding:36px 28px 48px; max-width:1500px; margin:0 auto; }
+.cj-title { font-size:26px; font-weight:700; text-align:center; margin-bottom:28px; letter-spacing:1px; }
+
+/* Phase arrow header */
+.cj-phases { display:grid; grid-template-columns:160px 1fr; gap:0; margin-bottom:16px; }
+.cj-phases-arrow { display:grid; grid-template-columns:repeat(6, 1fr); gap:4px; }
+.cj-phase { background:var(--navy); color:var(--white); padding:12px 12px; font-size:14px; font-weight:700; text-align:center; position:relative; clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%); margin-right:-10px; }
+.cj-phase:first-child { clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); }
+.cj-phase:last-child { clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%); margin-right:0; }
+
+/* Main grid */
+.cj-grid { display:grid; grid-template-columns:160px repeat(6, 1fr); border-top:1px solid var(--grey-mid); border-left:1px solid var(--grey-mid); background:var(--white); }
+.cj-actor { padding:16px 12px; background:var(--grey-light); color:var(--navy); font-size:13px; font-weight:500; border-right:1px solid var(--grey-mid); border-bottom:1px dashed var(--grey-mid); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.5; }
+.cj-actor .small { font-size:10px; opacity:0.65; margin-top:4px; font-weight:400; line-height:1.4; }
+.cj-cell { padding:14px 10px; border-bottom:1px dashed var(--grey-mid); border-right:1px dashed var(--grey-mid); min-height:90px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; position:relative; }
+.cj-grid > *:nth-last-child(-n+7) { border-bottom:1px solid var(--grey-mid); }
+
+/* Activity boxes */
+.cj-box { background:var(--white); border:1.5px solid var(--navy); border-radius:5px; padding:8px 14px; font-size:12px; font-weight:500; color:var(--navy); white-space:nowrap; box-shadow:var(--shadow-sm); }
+.cj-box.solid { background:var(--navy); color:var(--white); }
+.cj-box.dashed { border-style:dashed; opacity:0.6; }
+.cj-box.teal { background:var(--teal); color:var(--white); border-color:var(--teal); }
+.cj-box.outline { background:var(--white); border:1.5px solid var(--grey); color:var(--navy); }
+.cj-arrow-h { color:var(--navy); font-size:14px; opacity:0.6; line-height:1; }
+.cj-arrow-down { color:var(--navy); opacity:0.6; font-size:14px; text-align:center; padding:2px 0; }
+
+/* Annotations - inline within cell */
+.cj-note { background:var(--note-bg); padding:6px 10px; font-size:10px; color:var(--navy); border-radius:4px; line-height:1.5; max-width:100%; opacity:0.85; border-left:2px solid var(--grey); margin-top:4px; }
+
+/* Bottom section */
+.cj-spacer { height:36px; }
+.cj-bottom-grid { display:grid; grid-template-columns:160px repeat(6, 1fr); background:var(--white); border-top:1px solid var(--grey-mid); border-left:1px solid var(--grey-mid); }
+.cj-section-label { padding:16px 12px; background:var(--grey-light); font-size:13px; font-weight:500; color:var(--navy); border-right:1px solid var(--grey-mid); border-bottom:1px dashed var(--grey-mid); display:flex; align-items:center; justify-content:center; text-align:center; }
+.cj-pain-cell { padding:12px 10px; border-bottom:1px dashed var(--grey-mid); border-right:1px dashed var(--grey-mid); font-size:11.5px; line-height:1.65; }
+.cj-pain-cell ul { list-style:none; padding:0; }
+.cj-pain-cell li { padding-left:10px; position:relative; margin-bottom:3px; }
+.cj-pain-cell li::before { content:'•'; position:absolute; left:0; color:var(--navy); }
+.cj-action-cell { padding:14px 10px; border-bottom:1px solid var(--grey-mid); border-right:1px dashed var(--grey-mid); min-height:140px; display:flex; flex-direction:column; gap:8px; position:relative; }
+.cj-action-cell:last-child { border-right:none; }
+.cj-bottom-grid > *:nth-last-child(-n+7) { border-bottom:1px solid var(--grey-mid); }
+
+/* Funnel for the bottom row */
+.cj-funnel { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+.cj-funnel-step { background:var(--navy); color:var(--white); padding:6px 10px; font-size:11px; font-weight:500; border-radius:3px; }
+.cj-funnel-arrow { color:var(--navy); opacity:0.5; font-size:12px; }
+
+/* Branch lines (visual hint of flow) */
+.cj-branch { display:flex; flex-direction:column; gap:4px; padding:4px 0; }
+.cj-branch-item { font-size:11px; color:var(--navy); padding:5px 10px; border:1px solid var(--grey); border-radius:3px; background:var(--white); }
+.cj-branch-item.teal { background:var(--teal-light); border-color:var(--teal); color:var(--teal); }
+
+/* Inline action chips for 行動 row */
+.cj-chips { display:flex; flex-direction:column; gap:4px; }
+.cj-chips .chip { font-size:11px; color:var(--navy); padding:3px 0; }
+.cj-chips .chip::before { content:'・'; margin-right:2px; }
+
+@media (max-width: 1100px) {
+  .cj-container { padding:20px 12px 28px; }
+  .cj-title { font-size:20px; margin-bottom:18px; }
+  .cj-phases { grid-template-columns:100px 1fr; }
+  .cj-grid, .cj-bottom-grid { grid-template-columns:100px repeat(6, minmax(140px, 1fr)); overflow-x:auto; }
+  .cj-phase { font-size:11px; padding:10px 4px; }
+  .cj-actor { font-size:11px; padding:12px 6px; }
+  .cj-actor .small { font-size:9px; }
+  .cj-section-label { font-size:11px; padding:12px 6px; }
+  .cj-box { font-size:10.5px; padding:6px 10px; }
+  .cj-cell { min-height:70px; padding:10px 6px; }
+  .cj-pain-cell { font-size:10.5px; padding:8px 6px; }
+  .cj-action-cell { padding:10px 6px; min-height:120px; }
+  .cj-note { font-size:9px; padding:5px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="dummy-banner">
+  ⚠ 本データはダミーデータです ・ 実在の企業・サービス・人物・データとは関係ありません ・ DUMMY DATA FOR DEMONSTRATION
+</div>
+
+<div class="cj-container">
+<h1 class="cj-title">カスタマージャーニー（最終版）</h1>
+
+<!-- Phase header arrow -->
+<div class="cj-phases">
+  <div></div>
+  <div class="cj-phases-arrow">
+    <div class="cj-phase">課題認識なし</div>
+    <div class="cj-phase">課題認識</div>
+    <div class="cj-phase">解決策の検討</div>
+    <div class="cj-phase">要件定義</div>
+    <div class="cj-phase">選定</div>
+    <div class="cj-phase">導入</div>
+  </div>
+</div>
+
+<!-- Main 4-actor grid -->
+<div class="cj-grid">
+
+  <!-- 経営者 row -->
+  <div class="cj-actor">経営者</div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"><div class="cj-box">検討依頼</div></div>
+  <div class="cj-cell">
+    <div class="cj-note" style="font-size:9.5px;">経営者が外部関係者からリスク喚起を受け、社内に検討を指示することも</div>
+  </div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"><div class="cj-box">承認</div></div>
+
+  <!-- 管理者（総務）row -->
+  <div class="cj-actor">管理者（総務）</div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"><div class="cj-box">検討開始</div></div>
+  <div class="cj-cell">
+    <div class="cj-box">情報収集</div>
+    <span class="cj-arrow-h">→</span>
+    <div class="cj-box">調査</div>
+  </div>
+  <div class="cj-cell" style="flex-direction:column; align-items:stretch;">
+    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      <div class="cj-box">認識</div>
+      <span class="cj-arrow-h">→</span>
+      <div class="cj-box">業務要件の整理</div>
+    </div>
+    <div style="display:flex; gap:6px; padding-left:64px; margin-top:6px; flex-wrap:wrap;">
+      <div class="cj-box" style="font-size:11px;">議論・ヒアリング</div>
+      <div class="cj-box" style="font-size:11px;">グループの利用確認</div>
+    </div>
+  </div>
+  <div class="cj-cell">
+    <div class="cj-box">比較</div>
+    <span class="cj-arrow-h">→</span>
+    <div class="cj-box">稟議</div>
+  </div>
+  <div class="cj-cell"><div class="cj-box">導入</div></div>
+
+  <!-- 現場 row -->
+  <div class="cj-actor">現場<span class="small">（拠点長・ドライバー）</span></div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell">
+    <div class="cj-box">課題の提起</div>
+  </div>
+  <div class="cj-cell">
+    <div class="cj-note" style="font-size:9.5px;">管理側は、直行直帰などの業務確認で負担を感じやすい</div>
+  </div>
+  <div class="cj-cell">
+    <div class="cj-box dashed">相談</div>
+  </div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+
+  <!-- 外部関係者 row -->
+  <div class="cj-actor">外部関係者<span class="small">（グループ会社・代理店<br>弁護士・行政機関 など）</span></div>
+  <div class="cj-cell"><div class="cj-box">リスクアラート</div></div>
+  <div class="cj-cell">
+    <div class="cj-note" style="font-size:9.5px;">直行直帰が多い場合、紙運用に対して現場が負担を感じることも</div>
+  </div>
+  <div class="cj-cell">
+    <div class="cj-note" style="font-size:9.5px;">行政機関にヒアリングする企業もあるが、統一見解がなく曖昧な認識で進めている</div>
+  </div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+
+</div>
+
+<div class="cj-spacer"></div>
+
+<!-- Bottom: 課題感・関心事 + 行動 -->
+<div class="cj-bottom-grid">
+
+  <!-- 課題感・関心事 row -->
+  <div class="cj-section-label">課題感・関心事</div>
+  <div class="cj-pain-cell">
+    <ul>
+      <li>車両維持費</li>
+      <li>管理負荷</li>
+    </ul>
+  </div>
+  <div class="cj-pain-cell">
+    <ul>
+      <li>弁護士・社労士の指摘</li>
+      <li>他社のインシデント</li>
+      <li>時間外の業務負荷の増大</li>
+      <li>既存ツールの不満</li>
+    </ul>
+  </div>
+  <div class="cj-pain-cell">
+    <ul>
+      <li>専門家の見解</li>
+      <li>現状の法令違反リスクの可視化</li>
+    </ul>
+  </div>
+  <div class="cj-pain-cell">
+    <ul>
+      <li>運用フロー設計（業務確認・記録）</li>
+      <li>セキュリティ要件の定義</li>
+      <li>システム連携（経費精算等）</li>
+    </ul>
+  </div>
+  <div class="cj-pain-cell">
+    <ul>
+      <li>導入に向けた設計</li>
+      <li>現場からの反応</li>
+      <li>価格の妥当性</li>
+    </ul>
+  </div>
+  <div class="cj-pain-cell"></div>
+
+  <!-- 行動 row -->
+  <div class="cj-section-label">行動</div>
+  <div class="cj-action-cell">
+    <div class="cj-chips">
+      <span class="chip">共催セミナー<br>　（専門家・代理店）</span>
+      <span class="chip">他社との情報交換</span>
+      <span class="chip">総務メディアの<br>　情報収集</span>
+    </div>
+  </div>
+  <div class="cj-action-cell">
+    <div class="cj-chips">
+      <span class="chip">問い合わせ</span>
+      <span class="chip">資料請求</span>
+      <span class="chip">セミナー</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:4px; margin-top:auto;">
+      <div class="cj-box outline" style="font-size:10px; padding:5px 8px;">インサイドセールス</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:3px; font-size:10px; color:var(--navy); opacity:0.75;">
+      <span>↓ アポ獲得</span>
+      <span>↓ メルマガ</span>
+    </div>
+  </div>
+  <div class="cj-action-cell" style="justify-content:center;">
+    <div class="cj-box solid" style="align-self:flex-start;">商談①</div>
+    <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+      <div class="cj-branch-item" style="font-size:10px;">社内検討</div>
+    </div>
+  </div>
+  <div class="cj-action-cell" style="justify-content:center;">
+    <div class="cj-box solid" style="align-self:flex-start;">商談②</div>
+    <div style="display:flex; flex-direction:column; gap:4px; margin-top:8px;">
+      <div class="cj-branch-item" style="font-size:10px;">業務フロー設計<br>（自社サービス導入）</div>
+      <div class="cj-branch-item teal" style="font-size:10px;">業務フロー設計<br>（業務確認代行）</div>
+    </div>
+  </div>
+  <div class="cj-action-cell" style="justify-content:center;">
+    <div class="cj-box solid" style="align-self:flex-start;">商談③</div>
+  </div>
+  <div class="cj-action-cell" style="justify-content:center;">
+    <div class="cj-box" style="background:var(--teal); color:var(--white); border-color:var(--teal); align-self:flex-start;">成約</div>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>
