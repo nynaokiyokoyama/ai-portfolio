@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白ナンバー管理アプリ プロトタイプ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* PC: 業務SaaS基調 */
+    --navy: #1B224C;
+    --navy-deep: #0F1532;
+    --navy-light: #2A3568;
+    --navy-50: #F4F5FA;
+    --navy-100: #E5E7F0;
+    --navy-200: #C8CCDC;
+    
+    /* スマホ&アクセント: 既存ティール踏襲 */
+    --teal: #0997A0;
+    --teal-deep: #006A70;
+    --teal-light: #E6F4F5;
+    --teal-50: #F0FAFB;
+    
+    /* グレースケール */
+    --gray-50: #FAFAFB;
+    --gray-100: #F5F5F7;
+    --gray-200: #E8E9EE;
+    --gray-300: #D9D9D9;
+    --gray-400: #A8ADBD;
+    --gray-500: #6B7080;
+    --gray-600: #4A4F5E;
+    
+    --white: #FFFFFF;
+    
+    /* ステータス */
+    --red: #DC3D5A;
+    --red-light: #FDEEF1;
+    --yellow: #E8A317;
+    --yellow-light: #FDF6E3;
+    --green: #1F9D5A;
+    --green-light: #E5F5EC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--gray-100);
+    color: var(--navy);
+    line-height: 1.6;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .page-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .page-sub {
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  
+  .legend {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .legend-dot.pc { background: var(--navy); }
+  .legend-dot.phone { background: var(--teal); }
+  
+  .quick-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: var(--white);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(27,34,76,0.04);
+  }
+  .quick-nav a {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: var(--gray-100);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 6px;
+  }
+  .quick-nav a:hover {
+    background: var(--navy);
+    color: var(--white);
+  }
+  
+  .feature-section {
+    background: var(--white);
+    padding: 40px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(27, 34, 76, 0.04);
+  }
+  
+  .feature-header {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 20px;
+  }
+  .feature-num {
+    font-size: 11px;
+    color: var(--teal);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  .feature-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .feature-phase {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--gray-500);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+  .feature-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+  
+  .screens {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .screen-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .screen-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .screen-label::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+  .screen-caption {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+  
+  .arrow-between {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal);
+    font-size: 24px;
+    margin-top: 240px;
+    font-weight: 300;
+  }
+  
+  /* ==================
+     PCモックアップ:業務SaaS基調
+     ================== */
+  .pc-frame {
+    background: #2A3568;
+    border-radius: 10px 10px 0 0;
+    padding: 8px;
+    width: 600px;
+  }
+  .pc-titlebar {
+    display: flex;
+    gap: 6px;
+    padding: 4px 8px 8px;
+  }
+  .pc-titlebar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+  }
+  .pc-screen {
+    background: var(--gray-50);
+    height: 500px;
+    overflow: hidden;
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  .pc-stand {
+    width: 600px;
+    height: 12px;
+    background: linear-gradient(to bottom, #2A3568, #1B224C);
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 8px;
+  }
+  .pc-base {
+    width: 200px;
+    height: 6px;
+    background: var(--navy);
+    margin: 0 auto;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .pc-app {
+    display: flex;
+    height: 100%;
+  }
+  .pc-sidebar {
+    width: 140px;
+    background: var(--navy-deep);
+    color: var(--white);
+    padding: 16px 10px;
+    flex-shrink: 0;
+  }
+  .pc-logo {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    margin-bottom: 18px;
+    padding: 0 6px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+  }
+  .pc-logo .accent {
+    color: var(--teal);
+  }
+  .pc-nav-item {
+    padding: 7px 8px;
+    font-size: 10px;
+    margin-bottom: 1px;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pc-nav-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+  }
+  .pc-nav-item.active {
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 600;
+  }
+  .pc-nav-section {
+    font-size: 9px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 14px;
+    margin-bottom: 4px;
+    letter-spacing: 0.12em;
+    padding: 0 8px;
+    text-transform: uppercase;
+  }
+  
+  .pc-main {
+    flex: 1;
+    padding: 18px 22px;
+    overflow-y: auto;
+    background: var(--gray-50);
+  }
+  .pc-breadcrumb {
+    font-size: 9px;
+    color: var(--gray-400);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .pc-page-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  
+  .alert-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--red);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 0 6px 6px 0;
+  }
+  .alert-card.yellow {
+    border-left-color: var(--yellow);
+  }
+  .alert-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--navy);
+  }
+  .alert-body {
+    font-size: 10px;
+    color: var(--gray-600);
+    line-height: 1.55;
+  }
+  .alert-meta {
+    font-size: 9px;
+    color: var(--gray-400);
+    margin-top: 6px;
+  }
+  
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 90px 90px;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    margin-bottom: 2px;
+    align-items: center;
+    font-size: 10px;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+  .data-row:hover {
+    border-color: var(--navy-200);
+  }
+  .data-row.header {
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 9px;
+    color: var(--gray-500);
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+  .data-row.warn {
+    border-color: var(--yellow);
+    background: var(--yellow-light);
+  }
+  .data-row.danger {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 9px;
+    font-weight: 600;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+  .badge.danger { background: var(--red); color: var(--white); }
+  .badge.warn { background: var(--yellow); color: var(--white); }
+  .badge.ok { background: var(--green-light); color: var(--green); border: 1px solid rgba(31,157,90,0.2); }
+  .badge.gray { background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--gray-200); }
+  
+  .btn {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 1px solid var(--navy-200);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--navy); }
+  .btn.primary {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+  .btn.teal {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--teal);
+  }
+  .btn.danger {
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+  }
+  .btn-sm {
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+  
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+  .stat-label {
+    font-size: 9px;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat-value.danger { color: var(--red); }
+  .stat-sub {
+    font-size: 9px;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+  
+  .action-panel {
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+  }
+  .action-panel.alert {
+    border-color: var(--yellow);
+    background: var(--yellow-light);
+  }
+  .action-panel.danger {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  .action-panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .action-panel-title .icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--white);
+    font-size: 9px;
+    text-align: center;
+    line-height: 14px;
+    font-weight: 700;
+  }
+  .action-panel.danger .icon { background: var(--red); }
+  .action-panel-body {
+    font-size: 10px;
+    color: var(--gray-600);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  
+  select.modern-select {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 10px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--navy);
+  }
+  
+  /* ==================
+     スマホモックアップ:既存ティール基調を踏襲
+     ================== */
+  .phone-frame {
+    width: 290px;
+    background: var(--navy-deep);
+    border-radius: 36px;
+    padding: 10px;
+    box-shadow: 0 12px 40px rgba(27,34,76,0.18);
+  }
+  .phone-screen {
+    background: var(--white);
+    border-radius: 28px;
+    height: 580px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 22px;
+    background: var(--navy-deep);
+    border-radius: 0 0 14px 14px;
+    z-index: 10;
+  }
+  .phone-statusbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .phone-app-header {
+    background: var(--teal);
+    color: var(--white);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .phone-menu {
+    width: 18px;
+    height: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .phone-menu span {
+    height: 2px;
+    background: var(--white);
+    border-radius: 1px;
+  }
+  .phone-app-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  
+  .phone-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 18px;
+    background: var(--white);
+  }
+  
+  .phone-section-text {
+    font-size: 12px;
+    color: var(--navy);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  
+  .ocr-camera {
+    background: var(--navy-deep);
+    height: 200px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ocr-camera::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(9,151,160,0.1) 0%, transparent 50%);
+  }
+  .ocr-frame {
+    width: 80%;
+    height: 60%;
+    border: 2px solid var(--teal);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    position: relative;
+  }
+  .ocr-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 3px solid var(--teal);
+  }
+  .ocr-corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; border-radius: 6px 0 0 0; }
+  .ocr-corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; border-radius: 0 6px 0 0; }
+  .ocr-corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; border-radius: 0 0 0 6px; }
+  .ocr-corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; border-radius: 0 0 6px 0; }
+  
+  .ocr-frame-text {
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  
+  .detected-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--teal-light);
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-size: 11px;
+    color: var(--teal-deep);
+    font-weight: 600;
+  }
+  .detected-banner .check {
+    width: 18px;
+    height: 18px;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  
+  .form-row {
+    margin-bottom: 12px;
+  }
+  .form-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray-500);
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+  }
+  .form-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    padding: 9px 12px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+  }
+  .form-value.detected {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    color: var(--navy);
+  }
+  
+  .phone-cta {
+    background: var(--teal);
+    color: var(--white);
+    text-align: center;
+    padding: 13px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(9,151,160,0.25);
+  }
+  
+  .notif-banner {
+    background: var(--yellow-light);
+    border: 1px solid var(--yellow);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+  .notif-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--yellow);
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .notif-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .notif-body {
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-top: 8px;
+    line-height: 1.55;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--gray-400);
+    letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-title">白ナンバー管理ツール 機能プロトタイプ</div>
+    <div class="page-sub">フェーズ1〜2の中から、社内議論用に3機能を抜粋。各画面はローファイのモックアップです。</div>
+  </div>
+  
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot pc"></span>管理者向け(PC)― 業務SaaS基調</div>
+    <div class="legend-item"><span class="legend-dot phone"></span>運転者向け(スマホ)― 既存アプリのトーンを踏襲</div>
+  </div>
+  
+  <div class="quick-nav">
+    <a href="#feature-a">機能A:組織変更の検知と届出</a>
+    <a href="#feature-b">機能B:過労運転の配車警告</a>
+    <a href="#feature-c">機能C:免許証OCRと期限アラート</a>
+  </div>
+
+  <!-- 機能A:組織変更の検知と届出 -->
+  <section class="feature-section" id="feature-a">
+    <div class="feature-header">
+      <span class="feature-num">FEATURE A</span>
+      <span class="feature-title">組織変更の検知と届出</span>
+      <span class="feature-phase">PHASE 01 / リスク特大</span>
+    </div>
+    <div class="feature-desc">
+      安全運転管理者が「この運転者は自分の管理下ではなくなった」と気づいた時に、本社総務へ通知。総務が組織情報を更新し、必要に応じて選任変更届出書類が自動生成され、15日のカウントダウンが始まる。
+    </div>
+    
+    <div class="screens">
+      <div class="screen-block">
+        <div class="screen-label">①安全運転管理者(PC)|管理対象外フラグ</div>
+        <div class="screen-caption">承認待ちの運転者一覧から「管理対象外」をフラグ。理由を選んで本社へ通知。</div>
+        <div class="pc-frame">
+          <div class="pc-titlebar"><span></span><span></span><span></span></div>
+          <div class="pc-screen">
+            <div class="pc-app">
+              <div class="pc-sidebar">
+                <div class="pc-logo"></div>
+                <div class="pc-nav-section">点呼業務</div>
+                <div class="pc-nav-item active">承認待ち一覧</div>
+                <div class="pc-nav-item">点呼履歴</div>
+                <div class="pc-nav-section">運転者管理</div>
+                <div class="pc-nav-item">運転者一覧</div>
+                <div class="pc-nav-item">免許情報</div>
+                <div class="pc-nav-section">記録</div>
+                <div class="pc-nav-item">記録出力</div>
+              </div>
+              <div class="pc-main">
+                <div class="pc-breadcrumb">点呼業務 / 承認待ち一覧</div>
+                <div class="pc-page-title">承認待ちの点呼(東京営業所)</div>
+                
+                <div class="data-row header">
+                  <div>運転者名</div>
+                  <div>点呼種別</div>
+                  <div>受付時刻</div>
+                  <div>状態</div>
+                </div>
+                <div class="data-row">
+                  <div>佐藤 健太</div>
+                  <div>運転前</div>
+                  <div>08:42</div>
+                  <div><span class="badge ok">承認</span></div>
+                </div>
+                <div class="data-row warn">
+                  <div>田中 美咲</div>
+                  <div>運転前</div>
+                  <div>08:48</div>
+                  <div><button class="btn btn-sm danger">対象外</button></div>
+                </div>
+                <div class="data-row">
+                  <div>鈴木 一郎</div>
+                  <div>運転前</div>
+                  <div>08:51</div>
+                  <div><span class="badge gray">未承認</span></div>
+                </div>
+                <div class="data-row">
+                  <div>山田 太郎</div>
+                  <div>運転後</div>
+                  <div>17:23</div>
+                  <div><span class="badge gray">未承認</span></div>
+                </div>
+                
+                <div class="action-panel alert">
+                  <div class="action-panel-title">
+                    <span class="icon">!</span>
+                    田中 美咲さんを「管理対象外」としますか?
+                  </div>
+                  <div class="action-panel-body">
+                    本社総務に組織変更の確認依頼が送信されます。理由を選択してください。
+                  </div>
+                  <select class="modern-select">
+                    <option>他事業所への異動</option>
+                    <option>退職</option>
+                    <option>所属チーム変更</option>
+                    <option>その他</option>
+                  </select>
+                  <div style="display: flex; gap: 6px;">
+                    <button class="btn btn-sm">キャンセル</button>
+                    <button class="btn btn-sm primary">本社に通知</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pc-stand"></div>
+          <div class="pc-base"></div>
+        </div>
+      </div>
+      
+      <div class="arrow-between">→</div>
+      
+      <div class="screen-block">
+        <div class="screen-label">②本社総務(PC)|組織変更通知と届出生成</div>
+        <div class="screen-caption">通知を受け、組織情報を更新。選任変更が必要な場合、届出書類が自動生成され15日カウントダウンが開始。</div>
+        <div class="pc-frame">
+          <div class="pc-titlebar"><span></span><span></span><span></span></div>
+          <div class="pc-screen">
+            <div class="pc-app">
+              <div class="pc-sidebar">
+                <div class="pc-logo"></div>
+                <div class="pc-nav-section">本社業務</div>
+                <div class="pc-nav-item active">組織変更通知</div>
+                <div class="pc-nav-item">事業所一覧</div>
+                <div class="pc-nav-item">届出管理</div>
+                <div class="pc-nav-section">管理者</div>
+                <div class="pc-nav-item">選任状況</div>
+                <div class="pc-nav-item">講習管理</div>
+              </div>
+              <div class="pc-main">
+                <div class="pc-breadcrumb">本社業務 / 組織変更通知</div>
+                <div class="pc-page-title">組織変更通知(未対応 3件)</div>
+                
+                <div class="alert-card">
+                  <div class="alert-title">東京営業所 → 大阪営業所への異動</div>
+                  <div class="alert-body">
+                    田中 美咲さん。安全運転管理者:佐々木氏より「管理対象外」報告あり。組織情報を更新してください。
+                  </div>
+                  <div class="alert-meta">10分前 / 報告者:佐々木健(東京営業所 安全運転管理者)</div>
+                  <div style="margin-top: 10px; display: flex; gap: 6px;">
+                    <button class="btn btn-sm primary">組織情報を更新</button>
+                    <button class="btn btn-sm">詳細を確認</button>
+                  </div>
+                </div>
+                
+                <div class="alert-card yellow">
+                  <div class="alert-title">京都営業所 安全運転管理者の交替が必要</div>
+                  <div class="alert-body">
+                    現任管理者 中村氏の異動報告あり。後任の選任と届出が必要です。
+                  </div>
+                  <div class="alert-meta">2時間前</div>
+                </div>
+                
+                <div style="margin-top: 16px; padding: 14px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px;">
+                  <div style="font-size: 11px; font-weight: 700; margin-bottom: 10px; color: var(--navy); display: flex; align-items: center; gap: 6px;">
+                    <span style="display: inline-block; width: 14px; height: 14px; background: var(--teal); color: var(--white); border-radius: 3px; text-align: center; line-height: 14px; font-size: 9px;">📄</span>
+                    自動生成された届出書類
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--gray-50); border-radius: 6px; margin-bottom: 8px; border: 1px solid var(--gray-200);">
+                    <div>
+                      <div style="font-size: 10px; font-weight: 700; color: var(--navy);">安全運転管理者選任(解任)届出書</div>
+                      <div style="font-size: 9px; color: var(--gray-400); margin-top: 3px;">京都営業所 / 道交法第74条の3第5項</div>
+                    </div>
+                    <div style="text-align: right;">
+                      <div style="font-size: 9px; color: var(--red); font-weight: 600; letter-spacing: 0.05em;">届出期限まで</div>
+                      <div style="font-size: 16px; font-weight: 700; color: var(--red); letter-spacing: -0.02em;">残り 12日</div>
+                    </div>
+                  </div>
+                  <button class="btn btn-sm teal" style="width: 100%;">書類を確認・ダウンロード</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pc-stand"></div>
+          <div class="pc-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 機能B:過労運転の配車警告 -->
+  <section class="feature-section" id="feature-b">
+    <div class="feature-header">
+      <span class="feature-num">FEATURE B</span>
+      <span class="feature-title">過労運転の配車警告</span>
+      <span class="feature-phase">PHASE 02 / リスク大</span>
+    </div>
+    <div class="feature-desc">
+      点呼記録の打刻データから運転者ごとの累積運転時間・連続勤務日数を自動集計。閾値超過の運転者を配車しようとすると、配車画面に警告が表示。警告を無視して配車すると承認者にエスカレーションされる。
+    </div>
+    
+    <div class="screens">
+      <div class="screen-block">
+        <div class="screen-label">管理者(PC)|配車画面で警告 → エスカレーション</div>
+        <div class="screen-caption">運転者を選択すると累積運転時間が表示。閾値超過者は赤、注意領域は黄色で警告。強行配車時は承認者へ通知。</div>
+        <div class="pc-frame">
+          <div class="pc-titlebar"><span></span><span></span><span></span></div>
+          <div class="pc-screen">
+            <div class="pc-app">
+              <div class="pc-sidebar">
+                <div class="pc-logo"></div>
+                <div class="pc-nav-section">配車</div>
+                <div class="pc-nav-item active">配車計画</div>
+                <div class="pc-nav-item">配車履歴</div>
+                <div class="pc-nav-section">運転者管理</div>
+                <div class="pc-nav-item">運転者一覧</div>
+                <div class="pc-nav-item">勤務状況</div>
+                <div class="pc-nav-section">点呼業務</div>
+                <div class="pc-nav-item">承認待ち</div>
+              </div>
+              <div class="pc-main">
+                <div class="pc-breadcrumb">配車 / 配車計画 / 2026/05/02</div>
+                <div class="pc-page-title">配車計画 ― 5/2(土)</div>
+                
+                <div class="stat-grid">
+                  <div class="stat-card">
+                    <div class="stat-label">配車予定</div>
+                    <div class="stat-value">12<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">件</span></div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">要警告</div>
+                    <div class="stat-value danger">2<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">名</span></div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">未配車</div>
+                    <div class="stat-value">3<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">件</span></div>
+                  </div>
+                </div>
+                
+                <div class="data-row header">
+                  <div>運転者</div>
+                  <div>連続勤務</div>
+                  <div>今週の運転時間</div>
+                  <div>状態</div>
+                </div>
+                <div class="data-row">
+                  <div>佐藤 健太</div>
+                  <div>3日</div>
+                  <div>18時間 / 40h</div>
+                  <div><span class="badge ok">配車可</span></div>
+                </div>
+                <div class="data-row warn">
+                  <div>鈴木 一郎</div>
+                  <div>5日</div>
+                  <div>34時間 / 40h</div>
+                  <div><span class="badge warn">注意</span></div>
+                </div>
+                <div class="data-row danger">
+                  <div>山田 太郎</div>
+                  <div><strong>7日</strong></div>
+                  <div><strong>42時間 / 40h</strong></div>
+                  <div><span class="badge danger">警告</span></div>
+                </div>
+                
+                <div class="action-panel danger">
+                  <div class="action-panel-title">
+                    <span class="icon">!</span>
+                    山田 太郎さんは過労運転の警告対象です
+                  </div>
+                  <div class="action-panel-body">
+                    連続勤務7日・週運転時間が閾値(40時間)を超過。配車する場合は管理者承認が必要です。
+                  </div>
+                  <div style="display: flex; gap: 6px;">
+                    <button class="btn btn-sm">配車を見送る</button>
+                    <button class="btn btn-sm danger">承認申請して配車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pc-stand"></div>
+          <div class="pc-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 機能C:免許証OCR -->
+  <section class="feature-section" id="feature-c">
+    <div class="feature-header">
+      <span class="feature-num">FEATURE C</span>
+      <span class="feature-title">免許証OCRと期限アラート</span>
+      <span class="feature-phase">PHASE 02 / リスク大</span>
+    </div>
+    <div class="feature-desc">
+      運転者がスマホで免許証を撮影すると、OCRで有効期限・免許区分・条件が自動読取。期限60日前にプッシュ通知。管理者画面では全運転者の免許情報を一覧で把握できる。
+    </div>
+    
+    <div class="screens">
+      <div class="screen-block">
+        <div class="screen-label">①運転者(スマホ)|免許証撮影 → 自動読取</div>
+        <div class="screen-caption">枠内に免許証を合わせて撮影。OCRで読取された情報を確認して登録。期限60日前にプッシュ通知が届く。</div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-notch"></div>
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span>●●● ●●</span>
+            </div>
+            <div class="phone-app-header">
+              <div class="phone-menu">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="phone-app-title">免許証の登録</div>
+            </div>
+            <div class="phone-content">
+              
+              <div class="notif-banner">
+                <span class="notif-icon">!</span>
+                <span class="notif-title">期限まで残り58日です</span>
+                <div class="notif-body">免許更新後、新しい免許証の写真を登録してください。</div>
+              </div>
+              
+              <div class="ocr-camera">
+                <div class="ocr-frame">
+                  <span class="ocr-corner tl"></span>
+                  <span class="ocr-corner tr"></span>
+                  <span class="ocr-corner bl"></span>
+                  <span class="ocr-corner br"></span>
+                  <div class="ocr-frame-text">
+                    枠内に<br>免許証を合わせる
+                  </div>
+                </div>
+              </div>
+              
+              <div class="detected-banner">
+                <span class="check">✓</span>
+                <span>自動読取が完了しました</span>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-label">氏名</div>
+                <div class="form-value detected">佐藤 健太</div>
+              </div>
+              <div class="form-row">
+                <div class="form-label">有効期限</div>
+                <div class="form-value detected">令和8年(2026年) 6月29日</div>
+              </div>
+              <div class="form-row">
+                <div class="form-label">免許の種類</div>
+                <div class="form-value detected">普通・準中型</div>
+              </div>
+              <div class="form-row">
+                <div class="form-label">条件等</div>
+                <div class="form-value detected">眼鏡等</div>
+              </div>
+              
+              <div class="phone-cta">この内容で登録</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="arrow-between">→</div>
+      
+      <div class="screen-block">
+        <div class="screen-label">②管理者(PC)|全運転者の免許情報一覧</div>
+        <div class="screen-caption">期限切れ間近の運転者をハイライト。違反点数や免停中で運転業務がロックされている運転者も一目で把握。</div>
+        <div class="pc-frame">
+          <div class="pc-titlebar"><span></span><span></span><span></span></div>
+          <div class="pc-screen">
+            <div class="pc-app">
+              <div class="pc-sidebar">
+                <div class="pc-logo"></div>
+                <div class="pc-nav-section">運転者管理</div>
+                <div class="pc-nav-item">運転者一覧</div>
+                <div class="pc-nav-item active">免許情報</div>
+                <div class="pc-nav-item">違反点数</div>
+                <div class="pc-nav-section">点呼業務</div>
+                <div class="pc-nav-item">承認待ち</div>
+                <div class="pc-nav-item">点呼履歴</div>
+                <div class="pc-nav-section">配車</div>
+                <div class="pc-nav-item">配車計画</div>
+              </div>
+              <div class="pc-main">
+                <div class="pc-breadcrumb">運転者管理 / 免許情報</div>
+                <div class="pc-page-title">免許情報(東京営業所 全42名)</div>
+                
+                <div class="stat-grid">
+                  <div class="stat-card">
+                    <div class="stat-label">期限切れ間近</div>
+                    <div class="stat-value danger">3<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">名</span></div>
+                    <div class="stat-sub">60日以内</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">免停中</div>
+                    <div class="stat-value danger">1<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">名</span></div>
+                    <div class="stat-sub">業務ロック中</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">未登録</div>
+                    <div class="stat-value">2<span style="font-size:10px;color:var(--gray-400);font-weight:500;margin-left:4px;">名</span></div>
+                    <div class="stat-sub">要登録</div>
+                  </div>
+                </div>
+                
+                <div class="data-row header">
+                  <div>運転者名</div>
+                  <div>有効期限</div>
+                  <div>違反点数</div>
+                  <div>状態</div>
+                </div>
+                <div class="data-row danger">
+                  <div>佐藤 健太</div>
+                  <div>2026/06/29</div>
+                  <div>0点</div>
+                  <div><span class="badge danger">残58日</span></div>
+                </div>
+                <div class="data-row warn">
+                  <div>田中 美咲</div>
+                  <div>2026/07/15</div>
+                  <div>2点</div>
+                  <div><span class="badge warn">残74日</span></div>
+                </div>
+                <div class="data-row">
+                  <div>鈴木 一郎</div>
+                  <div>2028/03/10</div>
+                  <div>0点</div>
+                  <div><span class="badge ok">有効</span></div>
+                </div>
+                <div class="data-row danger">
+                  <div>高橋 明</div>
+                  <div>2027/08/20</div>
+                  <div><strong>6点</strong></div>
+                  <div><span class="badge danger">免停中</span></div>
+                </div>
+                <div class="data-row">
+                  <div>渡辺 翔</div>
+                  <div>2027/12/05</div>
+                  <div>0点</div>
+                  <div><span class="badge ok">有効</span></div>
+                </div>
+                <div class="data-row warn">
+                  <div>伊藤 葵</div>
+                  <div>未登録</div>
+                  <div>—</div>
+                  <div><span class="badge warn">要登録</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pc-stand"></div>
+          <div class="pc-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="footer">機能プロトタイプ（社用車管理SaaS）</div>
+</div>
+
+</body>
+</html>

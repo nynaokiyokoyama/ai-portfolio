@@ -75,6 +75,46 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .cj-chips .chip { font-size:11px; color:var(--navy); padding:3px 0; }
 .cj-chips .chip::before { content:'・'; margin-right:2px; }
 
+/* Arrows overlay */
+.cj-grid-wrap { position:relative; }
+.cj-arrows { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:visible; }
+.cj-cell { z-index:2; }
+
+/* Floating callouts */
+.cj-callout {
+  position:absolute;
+  background:#F3F4F8;
+  padding:7px 12px;
+  font-size:10.5px;
+  color:var(--navy);
+  line-height:1.55;
+  max-width:200px;
+  border-radius:6px;
+  box-shadow:0 1px 3px rgba(27,34,76,0.08);
+  z-index:5;
+}
+.cj-callout::after { content:''; position:absolute; width:0; height:0; }
+.cj-callout.tail-left::after {
+  left:-8px; top:50%; transform:translateY(-50%);
+  border-top:6px solid transparent; border-bottom:6px solid transparent;
+  border-right:8px solid #F3F4F8;
+}
+.cj-callout.tail-up::after {
+  left:50%; top:-7px; transform:translateX(-50%);
+  border-left:6px solid transparent; border-right:6px solid transparent;
+  border-bottom:7px solid #F3F4F8;
+}
+.cj-callout.tail-up-left::after {
+  left:20px; top:-7px;
+  border-left:6px solid transparent; border-right:6px solid transparent;
+  border-bottom:7px solid #F3F4F8;
+}
+.cj-callout.tail-up-right::after {
+  right:20px; top:-7px;
+  border-left:6px solid transparent; border-right:6px solid transparent;
+  border-bottom:7px solid #F3F4F8;
+}
+
 @media (max-width: 1100px) {
   .cj-container { padding:20px 12px 28px; }
   .cj-title { font-size:20px; margin-bottom:18px; }
@@ -115,23 +155,23 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 </div>
 
 <!-- Main 4-actor grid -->
+<div class="cj-grid-wrap">
+<svg class="cj-arrows" id="cj-arrows-svg" xmlns="http://www.w3.org/2000/svg"></svg>
 <div class="cj-grid">
 
   <!-- 経営者 row -->
   <div class="cj-actor">経営者</div>
   <div class="cj-cell"></div>
-  <div class="cj-cell"><div class="cj-box">検討依頼</div></div>
-  <div class="cj-cell">
-    <div class="cj-note" style="font-size:9.5px;">経営者が外部関係者からリスク喚起を受け、社内に検討を指示することも</div>
-  </div>
+  <div class="cj-cell"><div class="cj-box" id="t-kentou-irai">検討依頼</div></div>
   <div class="cj-cell"></div>
   <div class="cj-cell"></div>
-  <div class="cj-cell"><div class="cj-box">承認</div></div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"><div class="cj-box" id="t-shonin">承認</div></div>
 
   <!-- 管理者（総務）row -->
   <div class="cj-actor">管理者（総務）</div>
   <div class="cj-cell"></div>
-  <div class="cj-cell"><div class="cj-box">検討開始</div></div>
+  <div class="cj-cell"><div class="cj-box" id="t-kentou-kaishi">検討開始</div></div>
   <div class="cj-cell">
     <div class="cj-box">情報収集</div>
     <span class="cj-arrow-h">→</span>
@@ -141,17 +181,17 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
       <div class="cj-box">認識</div>
       <span class="cj-arrow-h">→</span>
-      <div class="cj-box">業務要件の整理</div>
+      <div class="cj-box" id="t-yomu-yoken">業務要件の整理</div>
     </div>
     <div style="display:flex; gap:6px; padding-left:64px; margin-top:6px; flex-wrap:wrap;">
-      <div class="cj-box" style="font-size:11px;">議論・ヒアリング</div>
-      <div class="cj-box" style="font-size:11px;">グループの利用確認</div>
+      <div class="cj-box" id="t-giron" style="font-size:11px;">議論・ヒアリング</div>
+      <div class="cj-box" id="t-group-riyo" style="font-size:11px;">グループの利用確認</div>
     </div>
   </div>
   <div class="cj-cell">
     <div class="cj-box">比較</div>
     <span class="cj-arrow-h">→</span>
-    <div class="cj-box">稟議</div>
+    <div class="cj-box" id="t-ringi">稟議</div>
   </div>
   <div class="cj-cell"><div class="cj-box">導入</div></div>
 
@@ -159,29 +199,30 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   <div class="cj-actor">現場<span class="small">（拠点長・ドライバー）</span></div>
   <div class="cj-cell"></div>
   <div class="cj-cell">
-    <div class="cj-box">課題の提起</div>
+    <div class="cj-box" id="t-kadai-teiki">課題の提起</div>
   </div>
+  <div class="cj-cell"></div>
   <div class="cj-cell">
-    <div class="cj-note" style="font-size:9.5px;">管理側は、直行直帰などの業務確認で負担を感じやすい</div>
-  </div>
-  <div class="cj-cell">
-    <div class="cj-box dashed">相談</div>
+    <div class="cj-box dashed" id="t-soudan">相談</div>
   </div>
   <div class="cj-cell"></div>
   <div class="cj-cell"></div>
 
   <!-- 外部関係者 row -->
   <div class="cj-actor">外部関係者<span class="small">（グループ会社・代理店<br>弁護士・行政機関 など）</span></div>
-  <div class="cj-cell"><div class="cj-box">リスクアラート</div></div>
-  <div class="cj-cell">
-    <div class="cj-note" style="font-size:9.5px;">直行直帰が多い場合、紙運用に対して現場が負担を感じることも</div>
-  </div>
-  <div class="cj-cell">
-    <div class="cj-note" style="font-size:9.5px;">行政機関にヒアリングする企業もあるが、統一見解がなく曖昧な認識で進めている</div>
-  </div>
+  <div class="cj-cell"><div class="cj-box" id="t-risk-alert">リスクアラート</div></div>
   <div class="cj-cell"></div>
   <div class="cj-cell"></div>
   <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+  <div class="cj-cell"></div>
+
+</div>
+
+<div class="cj-callout tail-left" id="c1" data-target="t-kentou-irai">経営者が外部関係者からリスク喚起を受け、社内に検討を指示することも</div>
+<div class="cj-callout tail-up-left" id="c2" data-target="t-kentou-kaishi">管理側は、直行直帰などの業務確認で負担を感じやすい</div>
+<div class="cj-callout tail-up" id="c3" data-target="t-kadai-teiki">直行直帰が多い場合、紙運用に対して現場が負担を感じることも</div>
+<div class="cj-callout tail-up" id="c4" data-target="t-soudan">行政機関にヒアリングする企業もあるが、統一見解がなく曖昧な認識で進めている</div>
 
 </div>
 
@@ -274,6 +315,101 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 </div>
 
 </div>
+
+<script>
+(function() {
+  function ns(name) { return document.createElementNS('http://www.w3.org/2000/svg', name); }
+  function rectRel(el, wr) {
+    var r = el.getBoundingClientRect();
+    return { left:r.left-wr.left, top:r.top-wr.top, right:r.right-wr.left, bottom:r.bottom-wr.top,
+      cx:r.left-wr.left+r.width/2, cy:r.top-wr.top+r.height/2, width:r.width, height:r.height };
+  }
+  function edge(rect, tx, ty) {
+    var dx=tx-rect.cx, dy=ty-rect.cy;
+    var ax=Math.abs(dx)||0.0001, ay=Math.abs(dy)||0.0001;
+    var t=Math.min((rect.width/2)/ax, (rect.height/2)/ay);
+    return { x:rect.cx+dx*t, y:rect.cy+dy*t };
+  }
+  function mkMarker(id, color) {
+    var m = ns('marker');
+    m.setAttribute('id', id); m.setAttribute('markerWidth','8'); m.setAttribute('markerHeight','8');
+    m.setAttribute('refX','6'); m.setAttribute('refY','4'); m.setAttribute('orient','auto'); m.setAttribute('markerUnits','userSpaceOnUse');
+    var p = ns('polygon'); p.setAttribute('points','0 0, 7 4, 0 8'); p.setAttribute('fill', color);
+    m.appendChild(p);
+    return m;
+  }
+  function drawLine(svg, sx, sy, ex, ey, color, markerId) {
+    var dx=ex-sx, dy=ey-sy, len=Math.sqrt(dx*dx+dy*dy);
+    if (len > 8) { ex = sx + dx*(1-4/len); ey = sy + dy*(1-4/len); }
+    var p = ns('path');
+    p.setAttribute('d', 'M '+sx+' '+sy+' L '+ex+' '+ey);
+    p.setAttribute('stroke', color); p.setAttribute('stroke-width','1.4'); p.setAttribute('fill','none'); p.setAttribute('opacity','0.6');
+    p.setAttribute('marker-end','url(#'+markerId+')');
+    svg.appendChild(p);
+  }
+  function positionCallouts(wr) {
+    var configs = [
+      { id: 'c1', target: 't-kentou-irai', anchor: 'right' },
+      { id: 'c2', target: 't-kentou-kaishi', anchor: 'below-right' },
+      { id: 'c3', target: 't-kadai-teiki', anchor: 'below' },
+      { id: 'c4', target: 't-soudan', anchor: 'below' }
+    ];
+    configs.forEach(function(c) {
+      var el = document.getElementById(c.id);
+      var target = document.getElementById(c.target);
+      if (!el || !target) return;
+      var tr = rectRel(target, wr);
+      var w = el.offsetWidth, h = el.offsetHeight;
+      var left, top;
+      if (c.anchor === 'right') {
+        left = tr.right + 14;
+        top = tr.cy - h/2;
+      } else if (c.anchor === 'below') {
+        left = tr.cx - w/2;
+        top = tr.bottom + 14;
+      } else if (c.anchor === 'below-right') {
+        left = tr.right + 14;
+        top = tr.bottom + 10;
+      }
+      el.style.left = left + 'px';
+      el.style.top = top + 'px';
+    });
+  }
+  function draw() {
+    var wrap = document.querySelector('.cj-grid-wrap');
+    var svg = document.getElementById('cj-arrows-svg');
+    if (!wrap || !svg) return;
+    var wr = wrap.getBoundingClientRect();
+    if (wr.width === 0) return;
+    svg.setAttribute('viewBox', '0 0 '+wr.width+' '+wr.height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var defs = ns('defs');
+    defs.appendChild(mkMarker('cj-ah-f','#1B224C'));
+    svg.appendChild(defs);
+    positionCallouts(wr);
+    [
+      ['t-kentou-irai','t-kentou-kaishi'],
+      ['t-kadai-teiki','t-kentou-kaishi'],
+      ['t-risk-alert','t-kentou-irai'],
+      ['t-yomu-yoken','t-giron'],
+      ['t-yomu-yoken','t-group-riyo'],
+      ['t-ringi','t-shonin']
+    ].forEach(function(pair) {
+      var f = document.getElementById(pair[0]), to = document.getElementById(pair[1]);
+      if (!f || !to) return;
+      var fr = rectRel(f, wr), tr = rectRel(to, wr);
+      var s = edge(fr, tr.cx, tr.cy), e = edge(tr, fr.cx, fr.cy);
+      drawLine(svg, s.x, s.y, e.x, e.y, '#1B224C', 'cj-ah-f');
+    });
+  }
+  var rt;
+  window.addEventListener('load', draw);
+  window.addEventListener('resize', function() { clearTimeout(rt); rt = setTimeout(draw, 50); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  setTimeout(draw, 100);
+  setTimeout(draw, 500);
+})();
+</script>
 
 </body>
 </html>

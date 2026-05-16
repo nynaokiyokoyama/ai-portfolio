@@ -80,13 +80,12 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .preview-dots span.y { background:#FFBD2E; }
 .preview-dots span.g { background:#28C940; }
 .preview-url { font-family:'SF Mono', Consolas, monospace; font-size:11px; color:rgba(255,255,255,0.65); }
-.preview-frame-wrap { position:relative; }
-.preview-frame { width:100%; height:300px; border:0; background:var(--white); display:block; pointer-events:none; }
-.preview-fade { position:absolute; left:0; right:0; bottom:0; height:64px; background:linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.97)); pointer-events:none; }
-.preview-cta { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; background:var(--white); border-top:1px solid var(--grey-mid); font-size:14px; font-weight:700; color:var(--teal); text-decoration:none; transition:background 0.15s; }
-.preview-cta:hover { background:var(--teal-light); }
-.preview-cta .cta-arrow { transition:transform 0.15s; }
-.preview-cta:hover .cta-arrow { transform:translateX(3px); }
+.preview-frame { width:100%; height:540px; border:0; background:var(--white); display:block; pointer-events:none; }
+.preview-cta { display:flex; align-items:center; justify-content:center; gap:8px; padding:16px 24px; background:var(--teal); color:var(--white); text-decoration:none; font-size:14px; font-weight:700; transition:background 0.15s; }
+.preview-cta:hover { background:#007077; }
+.preview-cta .cta-arrow { transition:transform 0.15s; font-size:16px; }
+.ext-icon { width:1em; height:1em; vertical-align:-0.15em; display:inline-block; flex-shrink:0; }
+.preview-cta:hover .cta-arrow { transform:translate(3px, -3px); }
 
 /* Two-stage journey */
 .stage-block { display:grid; grid-template-columns:60px 1fr; gap:14px; margin-top:18px; align-items:start; }
@@ -119,7 +118,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 @media (max-width: 900px) {
   .card-header { flex-wrap:wrap; }
   .value-grid { grid-template-columns:1fr; }
-  .preview-frame { height:260px; }
+  .preview-frame { height:440px; }
 }
 
 /* Responsive: Mobile (under 600px) */
@@ -158,7 +157,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .ai-callout-label { font-size:9px; }
   .ai-callout-text { font-size:12px; }
 
-  .preview-frame { height:220px; }
+  .preview-frame { height:380px; }
   .preview-bar { padding:6px 10px; }
   .preview-url { font-size:9.5px; }
   .preview-cta { font-size:13px; padding:12px; }
@@ -182,7 +181,6 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <h1>AI活用ポートフォリオ</h1>
         <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
       </a>
-      <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
     </div>
     <div class="meta">
       <span>横山 直紀</span>
@@ -245,13 +243,10 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
     <div class="preview-window">
       <div class="preview-bar">
         <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
-        <span class="preview-url">deliverables/dashboard.html</span>
+        <span class="preview-url">deliverables/dashboard.html#analysis</span>
       </div>
-      <div class="preview-frame-wrap">
-        <iframe class="preview-frame" src="deliverables/dashboard.html" title="定量リサーチダッシュボード プレビュー" loading="lazy"></iframe>
-        <div class="preview-fade"></div>
-      </div>
-      <a class="preview-cta" href="deliverables/dashboard.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
+      <iframe class="preview-frame" src="deliverables/dashboard.html#analysis" title="定量リサーチダッシュボード「集計・分析」タブ プレビュー" loading="lazy"></iframe>
+      <a class="preview-cta" href="deliverables/dashboard.html#analysis" target="_blank" rel="noopener">ダッシュボードを別タブで開く <span class="cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
     </div>
 
     <div class="tag-row">
@@ -297,11 +292,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
         <span class="preview-url">deliverables/customer-journey-v1.html</span>
       </div>
-      <div class="preview-frame-wrap">
-        <iframe class="preview-frame" src="deliverables/customer-journey-v1.html" title="カスタマージャーニー v1 プレビュー" loading="lazy"></iframe>
-        <div class="preview-fade"></div>
-      </div>
-      <a class="preview-cta" href="deliverables/customer-journey-v1.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
+      <iframe class="preview-frame" src="deliverables/customer-journey-v1.html" title="カスタマージャーニー v1（仮説）プレビュー" loading="lazy"></iframe>
+      <a class="preview-cta" href="deliverables/customer-journey-v1.html" target="_blank" rel="noopener">仮説ジャーニーを別タブで開く <span class="cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
     </div>
 
     <div class="stage-arrow-down">↓</div>
@@ -320,11 +312,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
         <span class="preview-url">deliverables/customer-journey-final.html</span>
       </div>
-      <div class="preview-frame-wrap">
-        <iframe class="preview-frame" src="deliverables/customer-journey-final.html" title="カスタマージャーニー 最終版 プレビュー" loading="lazy"></iframe>
-        <div class="preview-fade"></div>
-      </div>
-      <a class="preview-cta" href="deliverables/customer-journey-final.html" target="_blank" rel="noopener">フルサイズで詳しく見る <span class="cta-arrow">→</span></a>
+      <iframe class="preview-frame" src="deliverables/customer-journey-final.html" title="カスタマージャーニー 最終版 プレビュー" loading="lazy"></iframe>
+      <a class="preview-cta" href="deliverables/customer-journey-final.html" target="_blank" rel="noopener">最終版ジャーニーを別タブで開く <span class="cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
     </div>
 
     <div class="tag-row">

@@ -21,11 +21,18 @@
 body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:var(--navy); line-height:1.7; font-size:14px; -webkit-font-smoothing:antialiased; }
 
 /* Header */
-.header { background:var(--navy); color:var(--white); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
+.sticky-top { position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(27,34,76,0.15); }
+.header { background:var(--navy); color:var(--white); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; }
 .header h1 { font-size:16px; font-weight:700; letter-spacing:0.3px; }
 .header .subtitle { font-size:11px; font-weight:300; opacity:0.6; margin-top:1px; }
 .header .meta { display:flex; align-items:center; gap:12px; font-size:11px; opacity:0.7; }
 .header .meta-divider { opacity:0.4; }
+
+/* Tabs */
+.page-tabs { display:flex; gap:2px; padding:0 32px; background:var(--navy); border-top:1px solid rgba(255,255,255,0.08); }
+.page-tab { padding:10px 24px; font-family:'Noto Sans JP',sans-serif; font-size:14px; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(255,255,255,0.5); transition:all 0.2s; border-bottom:3px solid transparent; text-decoration:none; display:inline-block; }
+.page-tab:hover { color:rgba(255,255,255,0.8); }
+.page-tab.active { color:var(--white); border-bottom-color:var(--teal); background:rgba(255,255,255,0.05); cursor:default; }
 
 /* Layout */
 .layout { max-width:1200px; margin:0 auto; padding:48px 24px 32px; }
@@ -52,10 +59,11 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .card-eyebrow { font-size:10px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:8px; }
 .card-title { font-size:18px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:10px; }
 .card-desc { font-size:13px; color:var(--navy); opacity:0.7; line-height:1.8; flex:1; }
-.card-cta { margin-top:18px; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--teal); }
-.card:hover .card-cta { gap:10px; }
-.card-cta-arrow { transition:transform 0.2s; }
-.card:hover .card-cta-arrow { transform:translateX(3px); }
+.card-cta { margin-top:18px; display:inline-flex; align-self:flex-start; align-items:center; gap:7px; font-size:13px; font-weight:700; color:var(--teal); background:var(--teal-light); border:1px solid var(--teal-border); padding:9px 16px; border-radius:6px; transition:all 0.15s; }
+.card:hover .card-cta { background:var(--teal-hover); gap:11px; }
+.card-cta-arrow { transition:transform 0.2s; font-size:14px; }
+.ext-icon { width:1em; height:1em; vertical-align:-0.15em; display:inline-block; flex-shrink:0; }
+.card:hover .card-cta-arrow { transform:translate(3px, -3px); }
 
 /* Closing note */
 .closing { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:44px 48px; margin-top:32px; }
@@ -78,6 +86,8 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 }
 @media (max-width: 600px) {
   .header { padding:12px 16px; flex-wrap:wrap; gap:6px; }
+  .page-tabs { padding:0 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .page-tab { padding:8px 14px; font-size:12px; white-space:nowrap; flex-shrink:0; }
   .header h1 { font-size:14px; }
   .header .meta { font-size:10px; }
   .layout { padding:24px 14px 20px; }
@@ -99,17 +109,25 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 </head>
 <body>
 
-<header class="header">
-  <div>
-    <h1>AI活用ポートフォリオ</h1>
-    <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
-  </div>
-  <div class="meta">
-    <span>横山 直紀</span>
-    <span class="meta-divider">/</span>
-    <span>2026.05</span>
-  </div>
-</header>
+<div class="sticky-top">
+  <header class="header">
+    <div>
+      <h1>AI活用ポートフォリオ</h1>
+      <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
+    </div>
+    <div class="meta">
+      <span>横山 直紀</span>
+      <span class="meta-divider">/</span>
+      <span>2026.05</span>
+    </div>
+  </header>
+  <nav class="page-tabs">
+    <span class="page-tab active">TOP</span>
+    <a class="page-tab" href="project-management.html">プロジェクト管理</a>
+    <a class="page-tab" href="marketing.html">マーケティング戦略策定</a>
+    <a class="page-tab" href="digital.html">デジタルマーケティング施策</a>
+  </nav>
+</div>
 
 <div class="layout">
 
@@ -125,7 +143,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   <div class="cards">
 
     <!-- Card 1: プロジェクト管理 -->
-    <a class="card" href="project-management.html">
+    <a class="card" href="project-management.html" target="_blank" rel="noopener">
       <div class="card-visual">
         <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="複数のAIエージェントが連携する業務運用の模式図">
           <rect x="20" y="14" width="56" height="20" rx="4" fill="#FFFFFF" stroke="#3A4580" stroke-width="1.5"/>
@@ -148,12 +166,12 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <div class="card-eyebrow">TAB 01 ・ PROJECT MANAGEMENT</div>
         <div class="card-title">プロジェクト管理の<br>エージェント化</div>
         <p class="card-desc">MCPで連携したSlack / Notion AI / Zoom などのツールから、AIエージェントが自動でキャッチアップ。役割を分けた複数エージェントが議論し、次にやるべきことの素案までを生成する業務運用を実装している。</p>
-        <span class="card-cta">詳しく見る <span class="card-cta-arrow">→</span></span>
+        <span class="card-cta">詳しく見る <span class="card-cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></span>
       </div>
     </a>
 
     <!-- Card 2: マーケティング戦略策定 -->
-    <a class="card" href="marketing.html">
+    <a class="card" href="marketing.html" target="_blank" rel="noopener">
       <div class="card-visual">
         <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="定量データの可視化とカスタマージャーニー設計の模式図">
           <rect x="22" y="20" width="14" height="62" rx="2" fill="rgba(0,143,150,0.18)"/>
@@ -181,12 +199,12 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <div class="card-eyebrow">TAB 02 ・ MARKETING STRATEGY</div>
         <div class="card-title">マーケティング<br>戦略策定のAI活用</div>
         <p class="card-desc">定量リサーチのダッシュボード化や、定量データから仮説を立てて定性インタビューで検証するカスタマージャーニー設計など、顧客理解と戦略策定のサイクルをAIで高速化・高精度化している。</p>
-        <span class="card-cta">詳しく見る <span class="card-cta-arrow">→</span></span>
+        <span class="card-cta">詳しく見る <span class="card-cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></span>
       </div>
     </a>
 
     <!-- Card 3: デジタルマーケティング施策 -->
-    <a class="card" href="digital.html">
+    <a class="card" href="digital.html" target="_blank" rel="noopener">
       <div class="card-visual">
         <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="顧客の声からコンテンツを生成するデジタル施策の模式図">
           <rect x="26" y="34" width="44" height="56" rx="4" fill="#FFFFFF" stroke="#3A4580" stroke-width="1.5"/>
@@ -212,7 +230,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <div class="card-eyebrow">TAB 03 ・ DIGITAL MARKETING</div>
         <div class="card-title">デジタルマーケティング<br>施策のAI活用</div>
         <p class="card-desc">顧客の声からの広告コピー生成、問い合わせ事例を起点としたメルマガの戦略的パーソナライズ、コンテンツ制作の高速化など、実行施策におけるAI活用のアプローチを整理している。</p>
-        <span class="card-cta">詳しく見る <span class="card-cta-arrow">→</span></span>
+        <span class="card-cta">詳しく見る <span class="card-cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></span>
       </div>
     </a>
 

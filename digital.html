@@ -94,6 +94,26 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 .tag { display:inline-flex; align-items:center; padding:3px 10px; background:var(--white); border:1px solid var(--grey-mid); border-radius:14px; font-size:11px; color:var(--navy); }
 .tag.teal { border-color:var(--teal-border); background:var(--teal-light); color:var(--teal); }
 
+/* Card badge */
+.card-badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:500; white-space:nowrap; }
+.card-badge.dummy { background:var(--red-light); color:var(--red); border:1px solid rgba(196,68,68,0.25); }
+
+/* Preview window */
+.preview-window { margin-top:14px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--grey-mid); background:var(--grey-light); box-shadow:var(--shadow-md); }
+.preview-bar { display:flex; align-items:center; gap:10px; padding:8px 14px; background:var(--navy); color:var(--white); font-size:11px; }
+.preview-dots { display:inline-flex; gap:5px; }
+.preview-dots span { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.2); }
+.preview-dots span.r { background:#FF6058; }
+.preview-dots span.y { background:#FFBD2E; }
+.preview-dots span.g { background:#28C940; }
+.preview-url { font-family:'SF Mono', Consolas, monospace; font-size:11px; color:rgba(255,255,255,0.65); }
+.preview-frame { width:100%; height:520px; border:0; background:var(--white); display:block; pointer-events:none; }
+.preview-cta { display:flex; align-items:center; justify-content:center; gap:8px; padding:16px 24px; background:var(--teal); color:var(--white); text-decoration:none; font-size:14px; font-weight:700; transition:background 0.15s; }
+.preview-cta:hover { background:#007077; }
+.preview-cta .cta-arrow { transition:transform 0.15s; font-size:16px; }
+.ext-icon { width:1em; height:1em; vertical-align:-0.15em; display:inline-block; flex-shrink:0; }
+.preview-cta:hover .cta-arrow { transform:translate(3px, -3px); }
+
 /* Footer */
 .footer { text-align:center; padding:24px; font-size:11px; color:var(--navy); opacity:0.45; border-top:1px solid var(--grey-mid); margin-top:8px; }
 
@@ -133,6 +153,10 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
   .result-note { padding:12px 14px; }
   .result-note-text { font-size:12px; }
   .content-chip { font-size:11px; padding:6px 10px; }
+  .preview-frame { height:340px; }
+  .preview-bar { padding:6px 10px; }
+  .preview-url { font-size:9.5px; }
+  .preview-cta { font-size:13px; padding:12px; }
   .footer { padding:18px 12px; font-size:10px; }
 }
 </style>
@@ -146,7 +170,6 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
         <h1>AI活用ポートフォリオ</h1>
         <div class="subtitle">マーケと事業成長におけるAIの実践活用 v1.0</div>
       </a>
-      <span class="data-badge"><span class="dot"></span>本データはダミーデータです</span>
     </div>
     <div class="meta">
       <span>横山 直紀</span>
@@ -172,7 +195,7 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
 
   <section class="disclaimer">
     <div class="disclaimer-label">▼ 掲載方針について</div>
-    <div class="disclaimer-text">施策レベルの成果物（実際の広告クリエイティブ・配信実績・記事など）は、内容からクライアントが特定されやすくなります。クライアントの機密保持を最優先するため、本タブでは具体的な成果物は掲載せず、「どのようなアプローチでAIを活用しているか」のプロセス概要のみを記載しています。</div>
+    <div class="disclaimer-text">施策レベルの成果物（実際の広告クリエイティブ・配信実績・記事など）は、内容からクライアントが特定されやすくなります。クライアントの機密保持を最優先するため、本タブでは原則として具体的な成果物は掲載せず、「どのようなアプローチでAIを活用しているか」のプロセス概要のみを記載しています。<br>なお、04のサービスプロトタイプ設計のみ、内容を完全に匿名化したうえで一例を掲載しています。</div>
   </section>
 
   <section class="card">
@@ -298,6 +321,53 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--page-bg); color:v
       <span class="tag teal">SEO記事</span>
       <span class="tag teal">Webサイト構成</span>
       <span class="tag teal">バナー制作</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="card-title-block">
+        <div class="card-title">04 ・ サービスプロトタイプ設計</div>
+        <h3 class="card-h2">業務要件を、動くプロトタイプとして「見える形」で議論する</h3>
+        <p class="card-lead">マーケや事業の戦略議論の中で出てきた新規サービスの構想や、既存サービスの機能改善案を、AIを使ってその場でプロトタイプ画面に変換する。テキストの仕様書では伝わらない「使い心地」を、スマホ・PCの両画面で具体的に示すことで、社内外の意思決定者と精度高く議論できる。</p>
+      </div>
+      <span class="card-badge dummy">本データはダミーデータです</span>
+    </div>
+
+    <div class="ai-callout">
+      <div class="ai-callout-label">▼ AI活用のキモ</div>
+      <div class="ai-callout-text">
+        業務要件・ユースケースをAIに渡し、<strong>UI/UXの設計から画面コーディングまでをAIに任せる</strong>。テキスト仕様書では半日かかる議論が、動く画面を前にすると数十分で終わることもある。AIが「使える初稿」を出し、人は要件の妥当性・体験の磨き込みに集中する分業。
+      </div>
+    </div>
+
+    <div class="flow-label">PROCESS</div>
+    <div class="flow">
+      <span class="flow-step">業務要件・ユースケース整理</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">AIでUI/UX設計</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step ai">AIで画面プロトタイプ生成</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">ステークホルダーで議論</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">改善・実装方針確定</span>
+    </div>
+
+    <div class="preview-window">
+      <div class="preview-bar">
+        <span class="preview-dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+        <span class="preview-url">deliverables/prototype.html</span>
+      </div>
+      <iframe class="preview-frame" src="deliverables/prototype.html" title="サービスプロトタイプ プレビュー" loading="lazy"></iframe>
+      <a class="preview-cta" href="deliverables/prototype.html" target="_blank" rel="noopener">プロトタイプを別タブで開く <span class="cta-arrow"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag teal">Claude (Sonnet / Opus)</span>
+      <span class="tag teal">UI/UX 設計</span>
+      <span class="tag teal">HTML / CSS / JS</span>
+      <span class="tag teal">プロトタイピング</span>
     </div>
   </section>
 

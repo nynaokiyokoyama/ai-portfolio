@@ -1658,7 +1658,23 @@ function setStickyTop() {
     document.documentElement.style.setProperty('--sticky-top', stickyEl.offsetHeight + 'px');
   }
 }
-window.addEventListener('load', () => { setStickyTop(); setTimeout(drawConnectors, 100); });
+window.addEventListener('load', () => {
+  setStickyTop();
+  setTimeout(drawConnectors, 100);
+  // URL hash → switch tab (e.g., dashboard.html#analysis)
+  var hash = window.location.hash.replace('#', '');
+  if (hash) {
+    var btn = document.querySelector('.page-tab[data-page="' + hash + '"]');
+    if (btn) switchPage(hash, btn);
+  }
+});
+window.addEventListener('hashchange', () => {
+  var hash = window.location.hash.replace('#', '');
+  if (hash) {
+    var btn = document.querySelector('.page-tab[data-page="' + hash + '"]');
+    if (btn) switchPage(hash, btn);
+  }
+});
 window.addEventListener('resize', () => { setStickyTop(); drawConnectors(); });
 
 </script>
